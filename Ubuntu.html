@@ -38,8 +38,12 @@
 <ol>
 <li>
 mp3乱码问题
-  解决思路是转换为通用的utf8标签。
 
+</ol>
+
+<p>
+  解决思路是转换为通用的utf8标签。
+</p>
 <ul>
 <li>
 载工具mutagen：<code>sudo apt-get install python-mutagen</code>
@@ -48,7 +52,6 @@ mp3乱码问题
 修改标签： <code>find . -iname "*.mp3" -execdir mid3iconv -e GBK {} \;</code>
 
 </ul>
-</ol>
 
 
 <script type="text/javascript">
