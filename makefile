@@ -23,4 +23,7 @@ check:
 
 
 clean:
+	@mv index.mkd index.mkd.bk
 	@rm $(HTML) -f
+	@mv index.mkd.bk index.mkd
+
