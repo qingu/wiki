@@ -1,117 +1,138 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link type="image/x-icon" rel="icon" href="http://wiki.hotoo.me/favicon.ico">
-<link type="image/x-icon" rel="shortcut icon" href="http://wiki.hotoo.me/favicon.ico">
-<!--[if IE]><script type="text/javascript" src="js/html5.js"></script><![endif]-->
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/vim-like.css">
-<title>index-MetMan的Wiki</title>
-<style type="text/css">object,embed{-webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;-ms-animation-duration:.001s;-ms-animation-name:playerInserted;-o-animation-duration:.001s;-o-animation-name:playerInserted;animation-duration:.001s;animation-name:playerInserted;}@-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}@-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}@-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}@keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style><script>try {  for(var lastpass_iter=0; lastpass_iter < document.forms.length; lastpass_iter++){    var lastpass_f = document.forms[lastpass_iter];    if(typeof(lastpass_f.lpsubmitorig)=="undefined"){      if (typeof(lastpass_f.submit) == "function") {        lastpass_f.lpsubmitorig = lastpass_f.submit;        lastpass_f.submit = function(){          var form = this;          try {            if (document.documentElement && 'createEvent' in document)            {              var forms = document.getElementsByTagName('form');              for (var i=0 ; i<forms.length ; ++i)                if (forms[i]==form)                {                  var element = document.createElement('lpformsubmitdataelement');                  element.setAttribute('formnum',i);                  element.setAttribute('from','submithook');                  document.documentElement.appendChild(element);                  var evt = document.createEvent('Events');                  evt.initEvent('lpformsubmit',true,false);                  element.dispatchEvent(evt);                  break;                }            }          } catch (e) {}          try {            form.lpsubmitorig();          } catch (e) {}        }      }    }  }} catch (e) {}</script></head>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<link rel="stylesheet" href="/style.css" type="text/css" />
+
+
+<title>Ohlinux wiki 运维 OP -首页</title>
+<meta name="keywords" content="Linux,CentOS,sa,OP,mac,OSx,运维,开发">
+
+</head>
+
+
 <body>
-<div id="wrapper">
-<header>
-<nav>
-    <ul>
-        <li class="first"><a href="http://metman.info" title="Home">Home</a></li>
-        <li><a href="http://metman.info" title="Blog">Blog</a></li>
-        <li class="actived"><a href="http://metman.info/wiki" title="Wiki">Wiki</a></li>
-        <!-- li><a href="https://twitter.com/hotoo" title="Twitter">Twitter</a></li -->
-        <!-- li class="last"><a href="http://github.com/hotoo" title="Project">Project</a></li -->
-        <!-- li class="last"><a href="../resume/resume.html" title="About Me">README</a></li -->
-    </ul>
-</nav>
-</header>
-<article>
+<div id="all">
 
-    
-<h1 id="toc_1">MetMan's Wiki</h1>
-<div class="toc">
+<div id="all">
+    <div id="header">
+        <ul id="top-nav">
+            <li>
+            <a href="/index.html">Wiki首页</a>
+            </li>
+            <li>
+            <a href="http://www.ohlinux.com">Blog首页</a>
+            </li>
+            <li>
+            <a href="/about.html">about</a>
+            </li>
+        </ul>
+</div>
+
+
+ <!--if(title)-->
+
+<p>目录:</p>
+<div id="TOC">
 <ul>
-<li><a href="#toc_1">MetMan's Wiki</a>
-<ul>
-<li><a href="#toc_1.1">Programming</a>
-<li><a href="#toc_1.2">气象</a>
-<li><a href="#toc_1.3">PKM</a>
-<li><a href="#toc_1.4">效率工具</a>
-<li><a href="#toc_1.5">操作系统</a>
-</ul>
+<li><a href="#网站建设">网站建设</a></li>
+<li><a href="#操作系统os">操作系统OS</a><ul>
+<li><a href="#linux发行版本">Linux发行版本</a></li>
+<li><a href="#mac系统">Mac系统</a></li>
+<li><a href="#命令cmd">命令CMD</a></li>
+</ul></li>
+<li><a href="#运维管理op">运维管理OP</a><ul>
+<li><a href="#网络管理net">网络管理Net</a></li>
+<li><a href="#系统管理system">系统管理System</a></li>
+<li><a href="#网站管理web">网站管理Web</a></li>
+<li><a href="#报警监控monitor">报警监控Monitor</a></li>
+<li><a href="#集群管理cluster">集群管理Cluster</a></li>
+<li><a href="#网站架构struct">网站架构Struct</a></li>
+<li><a href="#运维工具optools">运维工具OPTools</a></li>
+</ul></li>
+<li><a href="#编程开发">编程开发</a><ul>
+<li><a href="#awk">Awk</a></li>
+<li><a href="#shell">Shell</a></li>
+<li><a href="#python">Python</a></li>
+<li><a href="#go语言">Go语言</a></li>
+<li><a href="#开发工具devtools">开发工具DevTools</a></li>
+</ul></li>
 </ul>
 </div>
-<h2 id="toc_1.1">Programming</h2>
-<ul>
-<li>
-My Urgent <a href="Tasks.html">Tasks</a> -- things to be done <em>yesterday</em>!!!
+ <!--if(toc)-->
 
-<li>
-Project Gutenberg -- good books are power.
+<!---title:Ohlinux wiki 运维 OP -首页-->
+<!---keywords:Linux,CentOS,sa,OP,mac,OSx,运维,开发-->
 
-<li>
-Scratch Pad -- various temporary stuff.
+<h2 id="网站建设">网站建设</h2>
+<p><a href="wiki/tool/sitebuild/ohlinuxwiki.html">用markdown + pandoc + makefile + vimwiki + git(github)搭建wiki</a></p>
+<p><a href="wiki/tool/sitebuild/markdown_syntax.html">markdown语法速查</a></p>
+<p><a href="wiki/tool/sitebuild/vimwiki_use.html">vimwiki安装和使用</a></p>
+<p><a href="wiki/tool/sitebuild/pandoc_install.html">pandoc安装使用</a></p>
+<p><a href="wiki/tool/sitebuild/github_sshkey.html">github免输入密码</a></p>
+<h2 id="操作系统os">操作系统OS</h2>
+<h3 id="linux发行版本">Linux发行版本</h3>
+<p>尚未整理</p>
+<h3 id="mac系统">Mac系统</h3>
+<p>尚未整理</p>
+<h3 id="命令cmd">命令CMD</h3>
+<p><a href="wiki/linux/cmd/top_cmd.html">常用Linux系统命令TOP100</a></p>
+<h2 id="运维管理op">运维管理OP</h2>
+<h3 id="网络管理net">网络管理Net</h3>
+<p>尚未整理</p>
+<h3 id="系统管理system">系统管理System</h3>
+<p>尚未整理</p>
+<h3 id="网站管理web">网站管理Web</h3>
+<p>尚未整理</p>
+<h3 id="报警监控monitor">报警监控Monitor</h3>
+<p>尚未整理</p>
+<h3 id="集群管理cluster">集群管理Cluster</h3>
+<p>尚未整理</p>
+<h3 id="网站架构struct">网站架构Struct</h3>
+<p>尚未整理</p>
+<h3 id="运维工具optools">运维工具OPTools</h3>
+<p><a href="wiki/op/optools/rsync_notroot.html">非root用户搭建rsync服务</a></p>
+<h2 id="编程开发">编程开发</h2>
+<h3 id="awk">Awk</h3>
+<p>尚未整理</p>
+<h3 id="shell">Shell</h3>
+<p><a href="wiki/sw_develop/language/shell.html">shell脚本速查</a></p>
+<h3 id="python">Python</h3>
+<p>尚未整理</p>
+<h3 id="go语言">Go语言</h3>
+<p>尚未整理</p>
+<h3 id="开发工具devtools">开发工具DevTools</h3>
+<p><a href="wiki/tool/versionmanage/git.html">git</a></p>
+<!-- vim:set tw=0:-->
 
-</ul>
-
-<h2 id="toc_1.2">气象</h2>
-
-<h2 id="toc_1.3">PKM</h2>
-<ul>
-<li>
-<a href="pkm_vimwiki.html">vimwiki</a>
-
-</ul>
-	
-
-<h2 id="toc_1.4">效率工具</h2>
-<ul>
-<li>
-<a href="awesome.html">awesome</a>
-
-</ul>
-	
-
-<h2 id="toc_1.5">操作系统</h2>
-<ul>
-<li>
-<a href="Ubuntu.html">Ubuntu</a>
-
-</ul>
-
-
-<script type="text/javascript">
-function onSearch(){
-    location.href = "search.html#"+document.getElementById("input_search").value;
-    return false;
-}
+<!--Baidu tongji-->
+<!--
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?c33f8eb1bbd2cf29ae19a3492ccca0c6";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
 </script>
-<div style="border-top:1px solid #ccc; background:#f6f6f6 none;padding:8px;">
-    <form action="search.html" id="searchbox" onsubmit="return onSearch();">
-        <input name="q" id="input_search" type="text">
-        <input value="搜索" type="submit">
-    </form>
+-->
+<!--Baidu tongji-->
+<div id="date"> </div>
+<div id="liuyan">
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1789306" async=""></script>
+    <!-- UY END -->
 </div>
-</article>
-<footer>
-    <a href="http://metman.info/wiki/index.html" id="back-home">‹ 首页</a>
-    <p><a rel="license" href="http://creativecommons.org/licenses/by/2.5/"><img alt="Creative Commons License" style="border-width: 0pt;" src="Wiki_files/88x31.png" align="right"></a>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5 Generic License</a>.<br>
-    Copyleft © 2010, Driven by <a href="http://code.google.com/p/vimwiki/">Vimwiki</a>, Theme by 闲耘™(@hotoo).
-    </p>
-    <p>本页最后修订于 %time_stamp%</p>
-</footer>
+<div id="footer">
+    <p class="footer_subline">Contact: ajian521@gmail.com</p>
 </div>
-<script type="text/javascript" src="js/jquery.js"></script>
-<!--[if lte IE 6]><script type="text/javascript" src="js/ie6.js"></script><![endif]-->
-<!-- <script type="text/javascript" src="js/WikiWords.js"></script>
-<script type="text/javascript" src="js/vim-like.js"></script> -->
-
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script><script src="js/ga.js" type="text/javascript"></script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-15922433-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
-
-
-</body></html>
+</div> <!--all-->
+</body>
+</html>
