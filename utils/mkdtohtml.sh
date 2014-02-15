@@ -2,7 +2,7 @@
 
 src=$1
 dst=$2
-WIKI_TOPDIR=`pwd`
+#WIKI_TOPDIR=`pwd`
 
 if [ ! `which pandoc` ];then
     echo "Can't find pandoc command"
@@ -10,7 +10,7 @@ if [ ! `which pandoc` ];then
 fi
 # pandoc选项
 PANDOC_FLAG=" --toc" # 自动生成目录
-PANDOC_FLAG+=" --css=$WIKI_TOPDIR/style.css" # 指名css样式文件.
+PANDOC_FLAG+=" --css=%WIKI_TOPDIR%style.css" # 指名css样式文件.
 PANDOC_FLAG+=" --template=temp_pandoctpl.html" # pandoc模板.
 PANDOC_FLAG+=" --tab-stop=4"
 PANDOC_FLAG+=" --include-in-header temp_head_keywords.html" # 临时文件, 用于<head>的关键字标签.
@@ -47,6 +47,7 @@ sed -i -e "s,%WIKI_TOPDIR%,${relative_dir},g" temp_pandoctpl.html
 # }}}
 
 # pandoc转换
+echo ${PANDOC_FLAG}
 pandoc ${PANDOC_FLAG} --from=markdown --to=html ${src} -o $dst # 调用pandoc编译
 
 # 后处理
