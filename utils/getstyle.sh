@@ -9,5 +9,5 @@ do
     src=`dirname ${src}`
 done
 
-echo ${style}
+#echo ${style}
 sed -i -e "s,\/style\.css,${style},g" $1

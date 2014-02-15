@@ -13,7 +13,7 @@ all:$(HTML)
 %.html:%.html.mkd  pageframe/header.html pageframe/footer.html pageframe/footer_statistic.html makefile utils/pandoctpl.html utils/mkdtohtml.sh
 	@echo "\033[32mMaking $@\033[0m"
 	@utils/mkdtohtml.sh $< $@ utils/pandoctpl.html
-	utils/getstyle.sh $@
+	@utils/getstyle.sh $@
 
 # 检查无效链接
 check:

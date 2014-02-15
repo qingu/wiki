@@ -2,7 +2,7 @@
 
 src=$1
 dst=$2
-#WIKI_TOPDIR=`pwd`
+WIKI_TOPDIR=`pwd`
 
 if [ ! `which pandoc` ];then
     echo "Can't find pandoc command"
@@ -36,21 +36,18 @@ if [ "${src:0:1}" = "/" ];then
 else
     dst_dir="`pwd`"/"`dirname $src`"
 fi
-echo 'dst_dir',$dst_dir
 while [ "`dirname ${dst_dir}`" != "${PWD}" ]
 do
     relative_dir=${relative_dir}../
     dst_dir=`dirname ${dst_dir}`
 done
-echo $relative_dir
 cp temp_pandoctpl.html tempxxxx.html
-sed -i -e "s,%WIKI_TOPDIR%,${relative_dir},g" temp_pandoctpl.html
+sed -i -e "s,${WIKI_TOPDIR},${relative_dir},g" temp_pandoctpl.html
 #for mac
 #sed -i '' 's,%WIKI_TOPDIR%,${relative_dir},g' temp_pandoctpl.html
 # }}}
 
 # pandoc转换
-echo ${PANDOC_FLAG}
 pandoc ${PANDOC_FLAG} --from=markdown --to=html ${src} -o $dst # 调用pandoc编译
 
 # 后处理
