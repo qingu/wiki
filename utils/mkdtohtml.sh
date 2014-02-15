@@ -10,7 +10,8 @@ if [ ! `which pandoc` ];then
 fi
 # pandoc选项
 PANDOC_FLAG=" --toc" # 自动生成目录
-PANDOC_FLAG+=" --css=%WIKI_TOPDIR%style.css" # 指名css样式文件.
+#PANDOC_FLAG+=" --css=%WIKI_TOPDIR%style.css" # 指名css样式文件.
+PANDOC_FLAG+=" --css=style.css" # 指名css样式文件.
 PANDOC_FLAG+=" --template=temp_pandoctpl.html" # pandoc模板.
 PANDOC_FLAG+=" --tab-stop=4"
 PANDOC_FLAG+=" --include-in-header temp_head_keywords.html" # 临时文件, 用于<head>的关键字标签.
