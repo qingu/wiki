@@ -36,12 +36,14 @@ if [ "${src:0:1}" = "/" ];then
 else
     dst_dir="`pwd`"/"`dirname $src`"
 fi
-
+echo 'dst_dir',$dst_dir
 while [ "`dirname ${dst_dir}`" != "${PWD}" ]
 do
     relative_dir=${relative_dir}../
     dst_dir=`dirname ${dst_dir}`
 done
+echo $relative_dir
+cp temp_pandoctpl.html tempxxxx.html
 sed -i -e "s,%WIKI_TOPDIR%,${relative_dir},g" temp_pandoctpl.html
 #for mac
 #sed -i '' 's,%WIKI_TOPDIR%,${relative_dir},g' temp_pandoctpl.html
