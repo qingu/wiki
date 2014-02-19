@@ -31,7 +31,7 @@
  * source ~/.bashrc 或 source ~/.zshrc
 
 ####AIX
-AIX下安装步骤和上面一样，除了要去掉intall.sh中cp和install命令`-v`选项。
+AIX下安装步骤和上面一样，除了要intall.sh中cp和install命令`-v`选项。
 
 
 ###用法
