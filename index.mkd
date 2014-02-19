@@ -8,7 +8,7 @@
 
 ##操作系统
 ###Linux
- * [autojump](/wiki/os/autojump)
+ * [autojump](/wiki/os/autojump.html)
 
 ##气象 
 
