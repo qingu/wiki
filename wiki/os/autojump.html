@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<link rel="stylesheet" href="../../style.css" type="text/css" />
+
+
+
+</head>
+
+
+<body>
+<div id="all">
+
+<div id="all">
+    <div id="header">
+        <ul id="top-nav">
+            <li>
+            <a href="index.html">Wiki首页</a>
+            </li>
+            <li>
+            <a href="http://metman.info">Blog首页</a>
+            </li>
+            <li>
+            <a href="/about.html">about</a>
+            </li>
+        </ul>
+</div>
+
+
+ <!--if(title)-->
+
+<p>目录:</p>
+<div id="TOC">
+<ul>
+<li><a href="#autojump">autojump</a><ul>
+<li><a href="#简介">简介</a></li>
+<li><a href="#安装">安装</a></li>
+<li><a href="#用法">用法</a></li>
+</ul></li>
+</ul>
+</div>
+ <!--if(toc)-->
+
+<h2 id="autojump">autojump</h2>
+<h3 id="简介">简介</h3>
+<p>autojump是一个配合bash或zsh快速访问文件系统的方法，可以很大程度上替代cd命令。通过命令行之前访问的目录数据库工作。使用前提是所要进入目录之前已经被访问过至少一次并被记录进数据库。</p>
+<p>项目主页是<a href="https://github.com/elthelion/autojump">https://github.com/elthelion/autojump</a></p>
+<h3 id="安装">安装</h3>
+<h4 id="安装需求">安装需求</h4>
+<p>× python v2.6+ × bash v4.0, zsh or bash</p>
+<h4 id="linux">Linux</h4>
+<ul>
+<li><code>git clone https://github.com/joelthelion/autojump.git</code></li>
+<li>cd autojump</li>
+<li>./install.sh</li>
+</ul>
+<p>提示安装成功，在~/目录下建立.autojump文件夹。</p>
+<ul>
+<li>bash 用户在~/.bashrc中添加</li>
+</ul>
+<pre><code>[[ -s ~/.autojump/etc/profile.d/autojump.bash ]] &amp;&amp; . ~/.autojump/etc/profile.d/autojump.bash</code></pre>
+<ul>
+<li>zsh 用户在~/.zshrc中添加</li>
+</ul>
+<pre><code> [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] &amp;&amp; . ~/.autojump/etc/profile.d/autojump.zsh</code></pre>
+<ul>
+<li>source ~/.bashrc 或 source ~/.zshrc</li>
+</ul>
+<h4 id="aix">AIX</h4>
+<p>AIX下安装步骤和上面一样，除了要修改intall.sh中cp和install命令<code>-v</code>选项。</p>
+<h3 id="用法">用法</h3>
+<ul>
+<li>快速进入目录： <code>j dist_dir</code></li>
+<li>查看数据库目录权重： <code>j --stat</code></li>
+<li>进入一个包含foo的目录: <code>j foo</code></li>
+<li>进入子目录：<code>jc bar</code></li>
+<li>打开文件管理器而不是进入目录：<code>jo music</code></li>
+<li>重名情况：如果有/usr/share/wordpress，/etc/wordpress两个都去过，执行<code>j word</code>时会先跳到/usr/share/wordpress，再执行<code>j word</code>会跳到/etc/wordpress，如果再执行<code>j word</code>，又会跳到/usr/share/wordpress。</li>
+<li>autojump支持Tab查找，如果输入<code>j word&lt;Tab&gt;</code>,autojump会列出符合的目录：</li>
+</ul>
+<pre><code>jenny@myhost:~$ j word__
+word__1__/usr/share/wordpress  word__2__/etc/wordpress</code></pre>
+<p>符合要求的第一项是/usr/share/wordpress，第二项是/etc/wordpress。</p>
+<p>如果想跳到/etc/wordpress，输入2回车即可，<code>j word__2</code></p>
+
+<!--Baidu tongji-->
+<!--
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?c33f8eb1bbd2cf29ae19a3492ccca0c6";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+-->
+<!--Baidu tongji-->
+<div id="footer">
+    <p class="footer_subline">Contact: jiangqingu@gmail.com</p>
+</div>
+</div> <!--all-->
+</body>
+</html>
