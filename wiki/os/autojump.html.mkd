@@ -1,6 +1,8 @@
-##autojump
-###简介
 <!---date:2014-02-19-->
+##autojump
+<!---date:2014-02-21-->
+autojump是一个配合bash或zsh快速访问文件系统的方法，可以很大程度上替代cd命令
+。通过命令行之前访问的目录数据库工作。使用前提是所要进入目录之前已经被访问过至少一次并被记录进数据库。  
 
 项目主页是<https://github.com/elthelion/autojump>
 

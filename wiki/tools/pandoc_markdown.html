@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="by John MacFarlane" />
+<meta name="author" content="Translated by Tzeng Yuxio" />
+
+
+
+<link rel="stylesheet" href="../../style.css" type="text/css" />
+
+
+
+</head>
+
+
+<body>
+<div id="all">
+
+<div id="all">
+    <div id="header">
+        <ul id="top-nav">
+            <li>
+            <a href="index.html">Wiki首页</a>
+            </li>
+            <li>
+            <a href="http://metman.info">Blog首页</a>
+            </li>
+            <li>
+            <a href="/about.html">about</a>
+            </li>
+        </ul>
+</div>
+<p>date: 2014-02-20</p>
+
+<div id="header">
+<h1 class="title"><a href="http://pages.tzengyuxio.me/pandoc/">Pandoc's Markdown 语法中文翻译</a></h1>
+<h2 class="author">by John MacFarlane</h2>
+<h2 class="author">Translated by <a href="http://tzengyuxio.me">Tzeng Yuxio</a></h2>
+</div> <!--id="header"-->
+ <!--if(title)-->
+
+<p>目录:</p>
+<div id="TOC">
+<ul>
+<li><a href="#前言">前言</a></li>
+<li><a href="#pandocs-markdown">Pandoc's markdown</a><ul>
+<li><a href="#哲学">哲学</a></li>
+<li><a href="#段落">段落</a></li>
+<li><a href="#标题">标题</a><ul>
+<li><a href="#setext-风格标题">Setext 风格标题</a></li>
+<li><a href="#atx-风格标题">Atx 风格标题</a></li>
+<li><a href="#html-latex-与-context-的标题识别符">HTML, LaTeX 与 ConTeXt 的标题识别符</a></li>
+</ul></li>
+<li><a href="#区块引言">区块引言</a></li>
+<li><a href="#字面代码区块">字面（代码）区块</a><ul>
+<li><a href="#缩进代码区块">缩进代码区块</a></li>
+<li><a href="#围栏代码区块">围栏代码区块</a></li>
+</ul></li>
+<li><a href="#行区块">行区块</a></li>
+<li><a href="#清单">清单</a><ul>
+<li><a href="#无序清单">无序清单</a></li>
+<li><a href="#四个空白规则">四个空白规则</a></li>
+<li><a href="#有序清单">有序清单</a></li>
+<li><a href="#定义清单">定义清单</a></li>
+<li><a href="#编号范例清单">编号范例清单</a></li>
+<li><a href="#紧凑与宽松清单">紧凑与宽松清单</a></li>
+<li><a href="#结束一个清单">结束一个清单</a></li>
+</ul></li>
+<li><a href="#分隔线">分隔线</a></li>
+<li><a href="#表格">表格</a><ul>
+<li><a href="#简单表格">简单表格</a></li>
+<li><a href="#多行表格">多行表格</a></li>
+<li><a href="#格框表格">格框表格</a></li>
+<li><a href="#管线表格">管线表格</a></li>
+</ul></li>
+<li><a href="#文件标题区块">文件标题区块</a></li>
+<li><a href="#反斜线跳脱字元">反斜线跳脱字元</a></li>
+<li><a href="#智慧型标点符号">智慧型标点符号</a></li>
+<li><a href="#行内格式">行内格式</a><ul>
+<li><a href="#强调">强调</a></li>
+<li><a href="#删除线">删除线</a></li>
+<li><a href="#上标与下标">上标与下标</a></li>
+<li><a href="#字面文字">字面文字</a></li>
+</ul></li>
+<li><a href="#数学">数学</a></li>
+<li><a href="#raw-html">Raw HTML</a></li>
+<li><a href="#raw-tex">Raw TeX</a></li>
+<li><a href="#latex-巨集">LaTeX 巨集</a></li>
+<li><a href="#连结">连结</a><ul>
+<li><a href="#自动连结">自动连结</a></li>
+<li><a href="#行内连结">行内连结</a></li>
+<li><a href="#参考连结">参考连结</a></li>
+<li><a href="#内部连结">内部连结</a></li>
+</ul></li>
+<li><a href="#图片">图片</a><ul>
+<li><a href="#附上说明的图片">附上说明的图片</a></li>
+</ul></li>
+<li><a href="#脚注">脚注</a></li>
+<li><a href="#引用">引用</a></li>
+</ul></li>
+</ul>
+</div>
+ <!--if(toc)-->
+
+<!---date:2014-02-20-->
+<h2 id="前言">前言</h2>
+<p>本文转自<a href="http://pages.tzengyuxio.me/pandoc/">http://pages.tzengyuxio.me/pandoc/</a></p>
+<p>这份文件是 <a href="http://johnmacfarlane.net/pandoc/">Pandoc</a> 版本 Markdown 语法的中文翻译。Pandoc 本身是由 <a href="http://johnmacfarlane.net/">John MacFarlane</a> 所开发的文件转换工具，可以在 HTML, Markdown, PDF, TeX...等等格式之间进行转换。有许多喜欢纯文字编辑的人，利用 Pandoc 来进行论文的撰写或投影片制作。但除了转换的功能外，Pandoc 所定义的 Markdown 扩充语法也是这套工具的一大亮点，在 Pandoc 的官方使用说明文件中，光是其针对 Markdown 格式的扩充就占了整整一半左右的篇幅。</p>
+<p>本文件翻译自 <a href="http://johnmacfarlane.net/pandoc/README.html#pandocs-markdown">Pandoc - Pandoc User’s Guide</a> 中的 &quot;Pandoc's markdown&quot; 一节。你可以看看<a href="https://raw.github.com/tzengyuxio/pages/gh-pages/pandoc/pandoc.markdown">这份文件的原始档</a>、产生文件<a href="https://github.com/tzengyuxio/pages/blob/gh-pages/pandoc/pm-template.html5">所使用的 HTML 范本</a>，以及<a href="https://github.com/tzengyuxio/pages/blob/gh-pages/pandoc/convert.sh">转换时的命令参数</a>。</p>
+<p>以下翻译开始。</p>
+<hr />
+<h1 id="pandocs-markdown">Pandoc's markdown</h1>
+<p>与 John Gruber 的 原始 <a href="http://daringfireball.net/projects/markdown/">markdown</a> 相比，Pandoc 版本的 markdown 在语法上有额外的扩充与些许的修正。这份文件解释了这些语法，并指出其与原始 markdown 的差异所在。除非特别提到，不然这些差异均可藉由使用 <code>markdown_strict</code> 而非 <code>markdown</code> 的格式来关闭。单独一项扩充也可透过 <code>+EXTENSION</code> 或 <code>-EXTENSION</code> 的方式来开启或关闭。例如，<code>markdown_strict+footnotes</code> 表示加上脚注扩充的原始 markdown，而 <code>markdown-footnotes-pipe_tables</code> 则是拿掉了脚注与管线表格扩充的 pandoc markdown。</p>
+<h2 id="哲学">哲学</h2>
+<p>Markdown 是针对易于书写与阅读的目标而设计的，特别是在易于阅读这点上尤为重要：</p>
+<blockquote>
+<p>一份 Markdown 格式的文件应该要能以纯文字形式直接发表，并且一眼看过去不存在任何标记用的标签或格式指令。 <small><a href="http://daringfireball.net/projects/markdown/syntax#philosophy">John Gruber</a></small></p>
+</blockquote>
+<p>这项原则同样也是 pandoc 在制订表格、脚注以及其他扩充的语法时，所依循的规范。</p>
+<p>然而，pandoc 的目标与原始 markdown 的最初目标有着方向性的不同。在 markdown 原本的设计中，HTML 是其主要输出对象；然而 pandoc 则是针对多种输出格式而设计。因此，虽然 pandoc 同样也允许直接嵌入 HTML 标签，但并不鼓励这样的作法，取而代之的是 pandoc 提供了许多非 HTML 的方式，来让使用者输入像是定义清单、表格、数学公式以及脚注等诸如此类的重要文件元素。</p>
+<h2 id="段落">段落</h2>
+<p>一个段落指的是一行以上的文字，跟在一行以上的空白行之后。换行字元会被当作是空白处理，因此你可以依自己喜好排列段落文字。如果你需要强制换行，在行尾放上两个以上的空白字元即可。</p>
+<p><strong>Extension: <code>escaped_line_breaks</code></strong></p>
+<p>一个反斜线后跟着一个换行字元，同样也有强制换行的效果。</p>
+<h2 id="标题">标题</h2>
+<p>有两种不同形式的标题语法，Setext 以及 atx。</p>
+<h3 id="setext-风格标题">Setext 风格标题</h3>
+<p>Setext 风格的标题是由一行文字底下接着一行 <code>=</code> 符号（用于一阶标题）或 <code>-</code> 符号（用于二阶标题）所构成：</p>
+<pre><code>A level-one header
+==================
+
+A level-two header
+------------------</code></pre>
+<p>标题的文字可以包含行内格式，例如强调（见下方 <a href="#行内格式">行内格式</a> 一节）。</p>
+<h3 id="atx-风格标题">Atx 风格标题</h3>
+<p>Atx 风格的标题是由一到六个 <code>#</code> 符号以及一行文字所组成，你可以在文字后面加上任意数量的 <code>#</code> 符号。由行首起算的 <code>#</code> 符号数量决定了标题的阶层：</p>
+<pre><code>## A level-two header
+
+### A level-three header ###</code></pre>
+<p>如同 setext 风格标题，这里的标题文字同样可包含行内格式：</p>
+<pre><code># A level-one header with a [link](/url) and *emphasis*</code></pre>
+<p><strong>Extension: <code>blank_before_header</code></strong></p>
+<p>原始 markdown 语法在标题之前并不需要预留空白行。Pandoc 则需要（除非标题位于文件最开始的地方）。这是因为以 <code>#</code> 符号开头的情况在一般文字段落中相当常见，这会导致非预期的标题。例如下面的例子：</p>
+<pre><code>I like several of their flavors of ice cream:
+#22, for example, and #5.</code></pre>
+<h3 id="html-latex-与-context-的标题识别符">HTML, LaTeX 与 ConTeXt 的标题识别符</h3>
+<p><strong>Extension: <code>header_attributes</code></strong></p>
+<p>在标题文字所在行的行尾，可以使用以下语法为标题加上属性：</p>
+<pre><code>{#identifier .class .class key=value key=value}</code></pre>
+<p>虽然这个语法也包含加入类别 (class) 以及键／值形式的属性 (attribute)，但目前只有识别符 (identifier/ID) 在输出时有实际作用（且只在部分格式的输出，包括：HTML, LaTeX, ConTeXt, Textile, AsciiDoc）。举例来说，下面是将标题加上 <code>foo</code> 识别符的几种方法：</p>
+<pre><code># My header {#foo}
+
+## My header ##    {#foo}
+
+My other header   {#foo}
+---------------</code></pre>
+<p>（此语法与 <a href="http://www.michelf.com/projects/php-markdown/extra/">PHP Markdown Extra</a> 相容。）</p>
+<p>具有 <code>unnumbered</code> 类别的标题将不会被编号，即使 <code>--number-sections</code> 的选项是开启的。单一连字符号 (<code>-</code>) 等同于 <code>.unnumbered</code>，且更适用于非英文文件中。因此，</p>
+<pre><code># My header {-}</code></pre>
+<p>与下面这行是等价的</p>
+<pre><code># My header {.unnumbered}</code></pre>
+<p><strong>Extension: <code>auto_identifiers</code></strong></p>
+<p>没有明确指定 ID（识别符）的标题将会依据其标题文字，自动指派一个独一无二的 ID。由标题文字推导 ID 的规则如下：</p>
+<ul>
+<li>移除所有格式，连结等。</li>
+<li>移除所有标点符号，除了底线、连字符号与句号。</li>
+<li>以连字符号取代所有空白与换行字元。</li>
+<li>将所有英文字母转为小写。</li>
+<li>移除第一个字元前的所有内容（ID 不能以数字或标点符号开头）。</li>
+<li>如果剩下为空字串，则使用 <code>section</code> 作为 ID。</li>
+</ul>
+<p>以下是一些范例，</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Header</th>
+<th align="left">Identifier</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Header identifiers in HTML</td>
+<td align="left"><code>header-identifiers-in-html</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>Dogs</em>?--in <em>my</em> house?</td>
+<td align="left"><code>dogs--in-my-house</code></td>
+</tr>
+<tr class="odd">
+<td align="left">[HTML], [S5], or [RTF]?</td>
+<td align="left"><code>html-s5-or-rtf</code></td>
+</tr>
+<tr class="even">
+<td align="left">3. Applications</td>
+<td align="left"><code>applications</code></td>
+</tr>
+<tr class="odd">
+<td align="left">33</td>
+<td align="left"><code>section</code></td>
+</tr>
+</tbody>
+</table>
+<p>在大多数情况下，这些规则应该让人能够直接从标题文字推导出 ID。唯一的例外是当有多个标题具有同样文字的情况；在这情况下，第一个标题的 ID 仍旧是透过以上规则推导而得；第二个则是在同样 ID 后加上 <code>-1</code>；第三个加上 <code>-2</code>；以此类推。</p>
+<p>在开启 <code>--toc|--table-of-contents</code> 的选项时，这些 ID 是用来产生目录 (Table of Contents) 所需的页面连结。此外，这些 ID 也提供了一个简便的方式来输入跳到指定章节的连结。一个以 ID 产生的连结，其使用的语法看起来就像下面的例子：</p>
+<pre><code>See the section on
+[header identifiers](#header-identifiers-in-html-latex-and-context).</code></pre>
+<p>然而要注意的一点是，只有在以 HTML、LaTeX 与 ConTeXt 格式输出时，才能以这种方式产生对应的章节连结。</p>
+<p>如果指定了 <code>--section-divs</code> 选项，则每一个小节都会以 <code>div</code> 标签包住（或是 <code>section</code> 标签，如果有指定 <code>--html5</code> 选项的话），并且 ID 会被附加在用来包住小节的 <code>&lt;div&gt;</code>（或是 <code>&lt;section&gt;</code>）标签，而非附加在标题上。这使得整个小节都可以透过 javascript 来操作，或是采用不同的 CSS 设定。</p>
+<p><strong>Extension: <code>implicit_header_references</code></strong></p>
+<p>Pandoc 假设每个标题都定义了其参考连结，因此，相较于以下的连结语法</p>
+<pre><code>[header identifiers](#header-identifiers-in-html)</code></pre>
+<p>你也可以单纯只写</p>
+<pre><code>[header identifiers]</code></pre>
+<p>或</p>
+<pre><code>[header identifiers][]</code></pre>
+<p>或</p>
+<pre><code>[the section on header identifiers][header identifiers]</code></pre>
+<p>如果有多个标题具有同样文字，对应的参考只会连结到第一个符合的标题，这时若要连结到其他符合的标题，就必须以先前提到的方式，明确指定连结到该标题的 ID。</p>
+<p>与其他一般参考连结不同的是，这些参考连结是大小写有别的。</p>
+<p>注意：如果你有明确定义了任何一个标题的标示符，那么选项 <code>implicit_header_references</code> 就没有作用。</p>
+<h2 id="区块引言">区块引言</h2>
+<p>Markdown 使用 email 的习惯来建立引言区块。一个引言区块可以由一或多个段落或其他的区块元素（如清单或标题）组成，并且其行首均是由一个 <code>&gt;</code> 符号加上一个空白作为开头。（<code>&gt;</code> 符号不一定要位在该行最左边，但也不能缩进超过三个空白）。</p>
+<pre><code>&gt; This is a block quote. This
+&gt; paragraph has two lines.
+&gt;
+&gt; 1. This is a list inside a block quote.
+&gt; 2. Second item.</code></pre>
+<p>有一个“偷懒”的形式：你只需要在引言区块的第一行行首输入 <code>&gt;</code> 即可，后面的行首可以省略符号：</p>
+<pre><code>&gt; This is a block quote. This
+paragraph has two lines.
+
+&gt; 1. This is a list inside a block quote.
+2. Second item.</code></pre>
+<p>由于区块引言可包含其他区块元素，而区块引言本身也是区块元素，所以，引言是可以嵌套入其他引言的。</p>
+<pre><code>&gt; This is a block quote.
+&gt;
+&gt; &gt; A block quote within a block quote.</code></pre>
+<p><strong>Extension: <code>blank_before_blockquote</code></strong></p>
+<p>原始 markdown 语法在区块引言之前并不需要预留空白行。Pandoc 则需要（除非区块引言位于文件最开始的地方）。这是因为以 <code>&gt;</code> 符号开头的情况在一般文字段落中相当常见（也许由于断行所致），这会导致非预期的格式。因此，除非是指定为 <code>markdown_strict</code> 格式，不然以下的语法在 pandoc 中将不会产生出嵌套区块引言：</p>
+<pre><code>&gt; This is a block quote.
+&gt;&gt; Nested.</code></pre>
+<h2 id="字面代码区块">字面（代码）区块</h2>
+<h3 id="缩进代码区块">缩进代码区块</h3>
+<p>一段以四个空白（或一个 tab）缩进的文字区块会被视为字面区块 (Verbatim Block)：换句话说，特殊字元并不会转换为任何格式，单纯只以字面形式呈现，而所有的空白与换行也都会被保留。例如，</p>
+<pre><code>    if (a &gt; 3) {
+      moveShip(5 * gravity, DOWN);
+    }</code></pre>
+<p>位于行首的缩排（四个空白或一个 tab）并不会被视为字面区块的一部分，因此在输出时会被移除掉。</p>
+<p>注意：在字面文字之间的空白行并不需要也以四个空白字元做开头。</p>
+<h3 id="围栏代码区块">围栏代码区块</h3>
+<p><strong>Extension: <code>fenced_code_blocks</code></strong></p>
+<p>除了标准的缩进代码区块外，Pandoc 也支援了<strong>围栏</strong> (<em>fenced</em>) 代码区块的语法。这区块需以包含三个以上波浪线 (<code>~</code>) 或反引号 (<code>`</code>) 的一行作为开始，并以同样符号且至少同样长度的一行作为结束。所有介于开始与结束之间的文字行都会视为代码。不需要额外的缩进：</p>
+<pre><code>~~~~~~~
+if (a &gt; 3) {
+  moveShip(5 * gravity, DOWN);
+}
+~~~~~~~</code></pre>
+<p>如同一般的代码区块，围栏代码区块与其前后的文字之间必须以空白行作间隔。</p>
+<p>如果代码本身也包含了一整行的波浪线或反引号，那么只要在区块首尾处使用更长的波浪线或反引号即可：</p>
+<pre><code>~~~~~~~~~~~~~~~~
+~~~~~~~~~~
+code including tildes
+~~~~~~~~~~
+~~~~~~~~~~~~~~~~</code></pre>
+<p>你也可以选择性地使用以下语法附加属性到代码区块上：</p>
+<pre><code>~~~~ {#mycode .haskell .numberLines startFrom=&quot;100&quot;}
+qsort []     = []
+qsort (x:xs) = qsort (filter (&lt; x) xs) ++ [x] ++
+               qsort (filter (&gt;= x) xs)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</code></pre>
+<p>这里的 <code>mycode</code> 为 ID，<code>haskell</code> 与 <code>numberLines</code> 是类别，而 <code>startsFrom</code> 则是值为 <code>100</code> 的属性。有些输出格式可以利用这些资讯来作语法高亮。目前有使用到这些资讯的输出格式仅有 HTML 与 LaTeX。如果指定的输出格式及语言类别有支援语法高亮，那么上面那段代码区块将会以高亮并带有行号的方式呈现。（要查询支援的程式语言清单，可在命令列输入 <code>pandoc --version</code>。）反之若无支援，则上面那段代码区块则会以下面的形式呈现：</p>
+<pre><code>&lt;pre id=&quot;mycode&quot; class=&quot;haskell numberLines&quot; startFrom=&quot;100&quot;&gt;
+  &lt;code&gt;
+  ...
+  &lt;/code&gt;
+&lt;/pre&gt;</code></pre>
+<p>下面这个是针对代码区块只有指定程式语言属性的简便形式：</p>
+<pre><code>```haskell
+qsort [] = []
+```</code></pre>
+<p>这与下面这行的效果是相同的：</p>
+<pre><code>``` {.haskell}
+qsort [] = []
+```</code></pre>
+<p>要取消所有语法高亮，使用 <code>--no-highlight</code> 选项。要设定语法高亮的配色，则使用 <code>--highlight-style</code>。</p>
+<h2 id="行区块">行区块</h2>
+<p><strong>Extension: <code>line_blocks</code></strong></p>
+<p>行区块是一连串以竖线 (<code>|</code>) 加上一个空格所构成的连续行。行与行间的区隔在输出时将会以原样保留，行首的空白字元数目也一样会被保留；反之，这些行将会以 markdown 的格式处理。这个语法在输入诗句或地址时很有帮助。</p>
+<pre><code>| The limerick packs laughs anatomical
+| In space that is quite economical.
+|    But the good ones I&#39;ve seen
+|    So seldom are clean
+| And the clean ones so seldom are comical
+
+| 200 Main St.
+| Berkeley, CA 94718</code></pre>
+<p>如果有需要的话，书写时也可以将完整一行拆成多行，但后续行必须以空白作为开始。下面范例的前两行在输出时会被视为一整行：</p>
+<pre><code>| The Right Honorable Most Venerable and Righteous Samuel L.
+  Constable, Jr.
+| 200 Main St.
+| Berkeley, CA 94718</code></pre>
+<p>这是从 <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a> 借来的语法。</p>
+<h2 id="清单">清单</h2>
+<h3 id="无序清单">无序清单</h3>
+<p>无序清单是以项目符号作列举的清单。每条项目都以项目符号 (<code>*</code>, <code>+</code> 或 <code>-</code>) 作开头。下面是个简单的例子：</p>
+<pre><code>* one
+* two
+* three</code></pre>
+<p>这会产生一个“紧凑”清单。如果你想要一个“宽松”清单，也就是说以段落格式处理每个项目内的文字内容，那么只要在每个项目间加上空白行即可：</p>
+<pre><code>* one
+
+* two
+
+* three</code></pre>
+<p>项目符号不能直接从行首最左边处输入，而必须以一至三个空白字元作缩进。项目符号后必须跟着一个空白字元。</p>
+<p>清单项目中的接续行，若与该项目的第一行文字对齐（在项目符号之后），看上去会较为美观：</p>
+<pre><code>* here is my first
+  list item.
+* and my second.</code></pre>
+<p>但 markdown 也允许以下“偷懒”的格式：</p>
+<pre><code>* here is my first
+list item.
+* and my second.</code></pre>
+<h3 id="四个空白规则">四个空白规则</h3>
+<p>一个清单项目可以包含多个段落以及其他区块等级的内容。然而，后续的段落必须接在空白行之后，并且以四个空白或一个 tab 作缩进。因此，如果项目里第一个段落与后面段落对齐的话（也就是项目符号前置入两个空白），看上去会比较整齐美观：</p>
+<pre><code>  * First paragraph.
+
+    Continued.
+
+  * Second paragraph. With a code block, which must be indented
+    eight spaces:
+
+        { code }</code></pre>
+<p>清单项目也可以包含其他清单。在这情况下前置的空白行是可有可无的。嵌套清单必须以四个空白或一个 tab 作缩进：</p>
+<pre><code>* fruits
+    + apples
+        - macintosh
+        - red delicious
+    + pears
+    + peaches
+* vegetables
+    + brocolli
+    + chard</code></pre>
+<p>上一节提到，markdown 允许你以“偷懒”的方式书写，项目的接续行可以不和第一行对齐。不过，如果一个清单项目中包含了多个段落或是其他区块元素，那么每个元素的第一行都必须缩进对齐。</p>
+<pre><code>+ A lazy, lazy, list
+item.
+
++ Another one; this looks
+bad but is legal.
+
+    Second paragraph of second
+list item.</code></pre>
+<p><strong>注意：</strong>尽管针对接续段落的“四个空白规则”是出自于官方的 <a href="http://daringfireball.net/projects/markdown/syntax#list">markdown syntax guide</a>，但是作为对应参考用的 <code>Markdown.pl</code> 实作版本中并未遵循此一规则。所以当输入时若接续段落的缩进少于四个空白时，pandoc 所输出的结果会与 <code>Markdown.pl</code> 的输出有所出入。</p>
+<p>在 <a href="http://daringfireball.net/projects/markdown/syntax#list">markdown syntax guide</a> 中并未明确表示“四个空白规则”是否一体适用于 <strong>所有</strong> 位于清单项目里的区块元素上；规范文件中只提及了段落与代码区块。但文件暗示了此规则适用于所有区块等级的内容（包含嵌套清单），并且 pandoc 以此方向进行解读与实作。</p>
+<h3 id="有序清单">有序清单</h3>
+<p>有序清单与无序清单相类似，唯一的差别在于清单项目是以列举编号作开头，而不是项目符号。</p>
+<p>在原始 markdown 中，列举编号是阿拉伯数字后面接着一个句点与空白。数字本身代表的数值会被忽略，因此下面两个清单并无差别：</p>
+<pre><code>1.  one
+2.  two
+3.  three</code></pre>
+<p>上下两个清单的输出是相同的。</p>
+<pre><code>5.  one
+7.  two
+1.  three</code></pre>
+<p><strong>Extension: <code>fancy_lists</code></strong></p>
+<p>与原始 markdown 不同的是，Pandoc 除了使用阿拉伯数字作为有序清单的编号外，也可以使用大写或小写的英文字母，以及罗马数字。清单标记可以用括号包住，也可以单独一个右括号，抑或是句号。如果清单标记是大写字母接着一个句号，句号后请使用至少两个空白字元。<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p><strong>Extension: <code>startnum</code></strong></p>
+<p>除了清单标记外，Pandoc 也能判读清单的起始编号，这两项资讯都会保留于输出格式中。举例来说，下面的输入可以产生一个从编号 9 开始，以单括号为编号标记的清单，底下还跟着一个小写罗马数字的子清单：</p>
+<pre><code> 9)  Ninth
+10)  Tenth
+11)  Eleventh
+       i. subone
+      ii. subtwo
+     iii. subthree</code></pre>
+<p>当遇到不同形式的清单标记时，Pandoc 会重新开始一个新的清单。所以，以下的输入会产生三份清单：</p>
+<pre><code>(2) Two
+(5) Three
+1.  Four
+*   Five</code></pre>
+<p>如果需要预设的有序清单标记符号，可以使用 <code>#.</code>：</p>
+<pre><code>#.  one
+#.  two
+#.  three</code></pre>
+<h3 id="定义清单">定义清单</h3>
+<p><strong>Extension: <code>definition_lists</code></strong></p>
+<p>Pandoc 支援定义清单，其语法的灵感来自于 <a href="http://www.michelf.com/projects/php-markdown/extra/">PHP Markdown Extra</a> 以及 <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html">reStructuredText</a>：<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<pre><code>Term 1
+
+:   Definition 1
+
+Term 2 with *inline markup*
+
+:   Definition 2
+
+        { some code, part of Definition 2 }
+
+    Third paragraph of definition 2.</code></pre>
+<p>每个专有名词 (term) 都必须单独存在于一行，后面可以接着一个空白行，也可以省略，但一定要接上一或多笔定义内容。一笔定义需由一个冒号或波浪线作开头，可以接上一或两个空白作为缩进。定义本身的内容主体（包括接在冒号或波浪线后的第一行）应该以四个空白缩进。一个专有名词可以有多个定义，而每个定义可以包含一或多个区块元素（段落、代码区块、清单等），每个区块元素都要缩进四个空白或一个 tab。</p>
+<p>如果你在定义内容后面留下空白行（如同上面的范例），那么该段定义会被当作段落处理。在某些输出格式中，这意谓着成对的专有名词与定义内容间会有较大的空白间距。在定义与定义之间，以及定义与下个专有名词间不要留空白行，即可产生一个比较紧凑的定义清单：</p>
+<pre><code>Term 1
+  ~ Definition 1
+Term 2
+  ~ Definition 2a
+  ~ Definition 2b</code></pre>
+<h3 id="编号范例清单">编号范例清单</h3>
+<p><strong>Extension: <code>example_lists</code></strong></p>
+<p>这个特别的清单标记 <code>@</code> 可以用来产生连续编号的范例清单。清单中第一个以 <code>@</code> 标记的项目会被编号为 '1'，接着编号为 '2'，依此类推，直到文件结束。范例项目的编号不会局限于单一清单中，而是文件中所有以 <code>@</code> 为标记的项目均会次序递增其编号，直到最后一个。举例如下：</p>
+<pre><code>(@)  My first example will be numbered (1).
+(@)  My second example will be numbered (2).
+
+Explanation of examples.
+
+(@)  My third example will be numbered (3).</code></pre>
+<p>编号范例可以加上标签，并且在文件的其他地方作参照：</p>
+<pre><code>(@good)  This is a good example.
+
+As (@good) illustrates, ...</code></pre>
+<p>标签可以是由任何英文字母、底线或是连字符号所组成的字串。</p>
+<h3 id="紧凑与宽松清单">紧凑与宽松清单</h3>
+<p>在与清单相关的“边界处理”上，Pandoc 与 <code>Markdown.pl</code> 有着不同的处理结果。考虑如下代码：</p>
+<pre><code>+   First
++   Second:
+    -   Fee
+    -   Fie
+    -   Foe
+
++   Third</code></pre>
+<p>Pandoc 会将以上清单转换为“紧凑清单”（在 &quot;First&quot;, &quot;Second&quot; 或 &quot;Third&quot; 之中没有 <code>&lt;p&gt;</code> 标签），而 markdown 则会在 &quot;Second&quot; 与 &quot;Third&quot; （但不包含 &quot;First&quot;）里面置入 <code>&lt;p&gt;</code> 标签，这是因为 &quot;Third&quot; 之前的空白行而造成的结果。Pandoc 依循着一个简单规则：如果文字后面跟着空白行，那么就会被视为段落。既然 &quot;Second&quot; 后面是跟着一个清单，而非空白行，那么就不会被视为段落了。至于子清单的后面是不是跟着空白行，那就无关紧要了。（注意：即使是设定为 <code>markdown_strict</code> 格式，Pandoc 仍是依以上方式处理清单项目是否为段落的判定。这个处理方式与 markdown 官方语法规范里的描述一致，然而却与 <code>Markdown.pl</code> 的处理不同。）</p>
+<h3 id="结束一个清单">结束一个清单</h3>
+<p>如果你在清单之后放入一个缩排的代码区块，会有什么结果？</p>
+<pre><code>-   item one
+-   item two
+
+    { my code block }</code></pre>
+<p>问题大了！这边 pandoc（其他的 markdown 实作也是如此）会将 <code>{ my code block }</code> 视为 <code>item two</code> 这个清单项目的第二个段落来处理，而不会将其视为一个代码区块。</p>
+<p>要在 <code>item two</code> 之后“切断”清单，你可以插入一些没有缩排、输出时也不可见的内容，例如 HTML 的注解：</p>
+<pre><code>-   item one
+-   item two
+
+&lt;!-- end of list --&gt;
+
+    { my code block }</code></pre>
+<p>当你想要两个各自独立的清单，而非一个大且连续的清单时，也可以运用同样的技巧：</p>
+<pre><code>1.  one
+2.  two
+3.  three
+
+&lt;!-- --&gt;
+
+1.  uno
+2.  dos
+3.  tres</code></pre>
+<h2 id="分隔线">分隔线</h2>
+<p>一行中若包含三个以上的 <code>*</code>, <code>-</code> 或 <code>_</code> 符号（中间可以以空白字元分隔），则会产生一条分隔线：</p>
+<pre><code>*  *  *  *
+
+---------------</code></pre>
+<h2 id="表格">表格</h2>
+<p>有四种表格的形式可以使用。前三种适用于等宽字型的编辑环境，例如 Courier。第四种则不需要直行的对齐，因此可以在比例字型的环境下使用。</p>
+<h3 id="简单表格">简单表格</h3>
+<p><strong>Extension: <code>simple_tables</code>, <code>table_captions</code></strong></p>
+<p>简单表格看起来像这样子：</p>
+<pre><code>  Right     Left     Center     Default
+-------     ------ ----------   -------
+     12     12        12            12
+    123     123       123          123
+      1     1          1             1
+
+Table:  Demonstration of simple table syntax.</code></pre>
+<p>表头与资料列分别以一行为单位。直行的对齐则依照表头的文字和其底下虚线的相对位置来决定：<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
+<ul>
+<li>如果虚线与表头文字的右侧有切齐，而左侧比表头文字还长，则该直行为靠右对齐。</li>
+<li>如果虚线与表头文字的左侧有切齐，而右侧比表头文字还长，则该直行为靠左对齐。</li>
+<li>如果虚线的两侧都比表头文字长，则该直行为置中对齐。</li>
+<li>如果虚线与表头文字的两侧都有切齐，则会套用预设的对齐方式（在大多数情况下，这将会是靠左对齐）。</li>
+</ul>
+<p>表格底下必须接着一个空白行，或是一行虚线后再一个空白行。表格标题为可选的（上面的范例中有出现）。标题需是一个以 <code>Table:</code> （或单纯只有 <code>:</code>）开头作为前缀的段落，输出时前缀的这部份会被去除掉。表格标题可以放在表格之前或之后。</p>
+<p>表头也可以省略，在省略表头的情况下，表格下方必须加上一行虚线以清楚标明表格的范围。例如：</p>
+<pre><code>-------     ------ ----------   -------
+     12     12        12             12
+    123     123       123           123
+      1     1          1              1
+-------     ------ ----------   -------</code></pre>
+<p>当省略表头时，直行的对齐会以表格内容的第一行资料列决定。所以，以上面的表格为例，各直行的对齐依序会是靠右、靠左、置中以及靠右对齐。</p>
+<h3 id="多行表格">多行表格</h3>
+<p><strong>Extension: <code>multiline_tables</code>, <code>table_captions</code></strong></p>
+<p>多行表格允许表头与表格资料格的文字能以复数行呈现（但不支援横跨多栏或纵跨多列的资料格）。以下为范例：</p>
+<pre><code>-------------------------------------------------------------
+ Centered   Default           Right Left
+  Header    Aligned         Aligned Aligned
+----------- ------- --------------- -------------------------
+   First    row                12.0 Example of a row that
+                                    spans multiple lines.
+
+  Second    row                 5.0 Here&#39;s another one. Note
+                                    the blank line between
+                                    rows.
+-------------------------------------------------------------
+
+Table: Here&#39;s the caption. It, too, may span
+multiple lines.</code></pre>
+<p>看起来很像简单表格，但两者间有以下差别：</p>
+<ul>
+<li>在表头文字之前，必须以一列虚线作为开头（除非有省略表头）。</li>
+<li>必须以一列虚线作为表格结尾，之后接一个空白行。</li>
+<li>资料列与资料列之间以空白行隔开。</li>
+</ul>
+<p>在多行表格中，表格分析器会计算各直行的栏宽，并在输出时尽可能维持各直行在原始文件中的相对比例。因此，要是你觉得某些栏位在输出时不够宽，你可以在 markdown 的原始档中加宽一点。</p>
+<p>和简单表格一样，表头在多行表格中也是可以省略的：</p>
+<pre><code>----------- ------- --------------- -------------------------
+   First    row                12.0 Example of a row that
+                                    spans multiple lines.
+
+  Second    row                 5.0 Here&#39;s another one. Note
+                                    the blank line between
+                                    rows.
+----------- ------- --------------- -------------------------
+
+: Here&#39;s a multiline table without headers.</code></pre>
+<p>多行表格中可以单只包含一个资料列，但该资料列之后必须接着一个空白行（然后才是标示表格结尾的一行虚线）。如果没有此空白行，此表格将会被解读成简单表格。</p>
+<h3 id="格框表格">格框表格</h3>
+<p><strong>Extension: <code>grid_tables</code>, <code>table_captions</code></strong></p>
+<p>格框表格看起来像这样：</p>
+<pre><code>: Sample grid table.
+
++---------------+---------------+--------------------+
+| Fruit         | Price         | Advantages         |
++===============+===============+====================+
+| Bananas       | $1.34         | - built-in wrapper |
+|               |               | - bright color     |
++---------------+---------------+--------------------+
+| Oranges       | $2.10         | - cures scurvy     |
+|               |               | - tasty            |
++---------------+---------------+--------------------+</code></pre>
+<p>以 <code>=</code> 串成的一行区分了表头与表格本体，这在没有表头的表格中也是可以省略的。在格框表格中的资料格可以包含任意的区块元素（复数段落、代码区块、清单等等）。不支援对齐，也不支援横跨多栏或纵跨多列的资料格。格框表格可以在 <a href="http://table.sourceforge.net/">Emacs table mode</a> 下轻松建立。</p>
+<h3 id="管线表格">管线表格</h3>
+<p><strong>Extension: <code>pipe_tables</code>, <code>table_captions</code></strong></p>
+<p>管线表格看起来像这样：</p>
+<pre><code>| Right | Left | Default | Center |
+|------:|:-----|---------|:------:|
+|   12  |  12  |    12   |    12  |
+|  123  |  123 |   123   |   123  |
+|    1  |    1 |     1   |     1  |
+
+  : Demonstration of simple table syntax.</code></pre>
+<p>这个语法与 <a href="http://michelf.ca/projects/php-markdown/extra/#table">PHP markdown extra 中的表格语法</a> 相同。开始与结尾的管线字元是可选的，但各直行间则必须以管线区隔。上面范例中的冒号表明了对齐方式。表头可以省略，但表头下的水平虚线必须保留，因为虚线上定义了资料栏的对齐方式。</p>
+<p>因为管线界定了各栏之间的边界，表格的原始码并不需要像上面例子中各栏之间保持直行对齐。所以，底下一样是个完全合法（虽然丑陋）的管线表格：</p>
+<pre><code>fruit| price
+-----|-----:
+apple|2.05
+pear|1.37
+orange|3.09</code></pre>
+<p>管线表格的资料格不能包含如段落、清单之类的区块元素，也不能包含复数行文字。</p>
+<p>注意：Pandoc 也可以看得懂以下形式的管线表格，这是由 Emacs 的 orgtbl-mod 所绘制：</p>
+<pre><code>| One | Two   |
+|-----+-------|
+| my  | table |
+| is  | nice  |</code></pre>
+<p>主要的差别在于以 <code>+</code> 取代了部分的 <code>|</code>。其他的 orgtbl 功能并未支援。如果要指定非预设的直行对齐形式，你仍然需要在上面的表格中自行加入冒号。</p>
+<h2 id="文件标题区块">文件标题区块</h2>
+<p>（译注：本节中提到的“标题”均指 Title，而非 Headers）</p>
+<p><strong>Extension: <code>pandoc_title_block</code></strong></p>
+<p>如果档案以文件标题（Title）区块开头</p>
+<pre><code>% title
+% author(s) (separated by semicolons)
+% date</code></pre>
+<p>这部份将不会作为一般文字处理，而会以书目资讯的方式解析。（这可用在像是单一 LaTeX 或是 HTML 输出文件的书名上。）这个区块仅能包含标题，或是标题与作者，或是标题、作者与日期。如果你只想包含作者却不想包含标题，或是只有标题与日期而没有作者，你得利用空白行：</p>
+<pre><code>%
+% Author
+
+% My title
+%
+% June 15, 2006</code></pre>
+<p>标题可以包含多行文字，但接续行必须以空白字元开头，像是：</p>
+<pre><code>% My title
+  on multiple lines</code></pre>
+<p>如果文件有多个作者，作者也可以分列在不同行并以空白字元作开头，或是以分号间隔，或是两者并行。所以，下列各种写法得到的结果都是相同的：</p>
+<pre><code>% Author One
+  Author Two
+
+% Author One; Author Two
+
+% Author One;
+  Author Two</code></pre>
+<p>日期就只能写在一行之内。</p>
+<p>所有这三个 metadata 栏位都可以包含标准的行内格式（斜体、连结、脚注等等）。</p>
+<p>文件标题区块一定会被分析处理，但只有在 <code>--standaline</code> (<code>-s</code>) 选项被设定时才会影响输出内容。在输出 HTML 时，文件标题会出现的地方有两个：一个是在文件的 <code>&lt;head&gt;</code> 区块里－－这会显示在浏览器的视窗标题上－－另外一个是文件的 <code>&lt;body&gt;</code> 区块最前面。位于 <code>&lt;head&gt;</code> 里的文件标题可以选择性地加上前缀文字（透过 <code>--title-prefix</code> 或 <code>-T</code> 选项）。而在 <code>&lt;body&gt;</code> 里的文件标题会以 H1 元素呈现，并附带 &quot;title&quot; 类别 (class)，这样就能藉由 CSS 来隐藏显示或重新定义格式。如果以 <code>-T</code> 选项指定了标题前缀文字，却没有设定文件标题区块里的标题，那么前缀文字本身就会被当作是 HTML 的文件标题。</p>
+<p>而 man page 的输出器会分析文件标题区块的标题行，以解出标题、man page section number，以及其他页眉 (header) 页脚 (footer) 所需要的资讯。一般会假设标题行的第一个单字为标题，标题后也许会紧接着一个以括号包住的单一数字，代表 section number（标题与括号之间没有空白）。在此之后的其他文字则为页脚与页眉文字。页脚与页眉文字之间是以单独的一个管线符号 (<code>|</code>) 作为区隔。所以，</p>
+<pre><code>% PANDOC(1)</code></pre>
+<p>将会产生一份标题为 <code>PANDOC</code> 且 section 为 1 的 man page。</p>
+<pre><code>% PANDOC(1) Pandoc User Manuals</code></pre>
+<p>产生的 man page 会再加上 &quot;Pandoc User Manuals&quot; 在页脚处。</p>
+<pre><code>% PANDOC(1) Pandoc User Manuals | Version 4.0</code></pre>
+<p>产生的 man page 会再加上 &quot;Version 4.0&quot; 在页眉处。</p>
+<h2 id="反斜线跳脱字元">反斜线跳脱字元</h2>
+<p><strong>Extension: <code>all_symbols_escapable</code></strong></p>
+<p>除了在代码区块或行内代码之外，任何标点符号或空白字元前面只要加上一个反斜线，都能使其保留字面原义，而不会进行格式的转义解读。因此，举例来说，下面的写法</p>
+<pre><code>*\*hello\**</code></pre>
+<p>输出后会得到</p>
+<pre><code>&lt;em&gt;*hello*&lt;/em&gt;</code></pre>
+<p>而不是</p>
+<pre><code>&lt;strong&gt;hello&lt;/strong&gt;</code></pre>
+<p>这条规则比原始的 markdown 规则来得好记许多，原始规则中，只有以下字元才有支援反斜线跳脱，不作进一步转义：</p>
+<pre><code>\`*_{}[]()&gt;#+-.!</code></pre>
+<p>（然而，如果使用了 <code>markdown_strict</code> 格式，那么就会采用原始的 markdown 规则）</p>
+<p>一个反斜线之后的空白字元会被解释为不断行的空白 (nonbreaking space)。这在 TeX 的输出中会显示为 <code>~</code>，而在 HTML 与 XML 则是显示为 <code>\&amp;#160;</code> 或 <code>\&amp;nbsp;</code>。</p>
+<p>一个反斜线之后的换行字元（例如反斜线符号出现在一行的最尾端）则会被解释为强制换行。这在 TeX 的输出中会显示为 <code>\\</code>，而在 HTML 里则是 <code>&lt;br /&gt;</code>。相对于原始 markdown 是以在行尾加上两个空白字元这种“看不见”的方式进行强制换行，反斜线接换行字元会是比较好的替代方案。</p>
+<p>反斜线跳脱字元在代码上下文中不起任何作用。</p>
+<h2 id="智慧型标点符号">智慧型标点符号</h2>
+<p><strong>Extension</strong></p>
+<p>如果指定了 <code>--smart</code> 选项，pandoc 将会输出正式印刷用的标点符号，像是将 straight quotes 转换为 curly quotes<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>、<code>---</code> 转为破折号 (em-dashes)，<code>--</code> 转为连接号 (en-dashes)，以及将 <code>...</code> 转为删节号。不断行空格 (Nonbreaking spaces) 将会插入某些缩写词之后，例如 &quot;Mr.&quot;。</p>
+<p>注意：如果你的 LaTeX template 使用了 <code>csquotes</code> 套件，pandoc 会自动侦测并且使用 <code>\enquote{...}</code> 在引言文字上。</p>
+<h2 id="行内格式">行内格式</h2>
+<h3 id="强调">强调</h3>
+<p>要 <em>强调</em> 某些文字，只要以 <code>*</code> 或 <code>_</code> 符号前后包住即可，像这样：</p>
+<pre><code>This text is _emphasized with underscores_, and this
+is *emphasized with asterisks*.</code></pre>
+<p>重复两个 <code>*</code> 或 <code>_</code> 符号以产生 <strong>更强烈的强调</strong>：</p>
+<pre><code>This is **strong emphasis** and __with underscores__.</code></pre>
+<p>一个前后以空白字元包住，或是前面加上反斜线的 <code>*</code> 或 <code>_</code> 符号，都不会转换为强调格式：</p>
+<pre><code>This is * not emphasized *, and \*neither is this\*.</code></pre>
+<p><strong>Extension: <code>intraword_underscores</code></strong></p>
+<p>因为 <code>_</code> 字元有时会使用在单字或是 ID 之中，所以 pandoc 不会把被字母包住的 <code>_</code> 解读为强调标记。如果有需要特别强调单字中的一部分，就用 <code>*</code>：</p>
+<pre><code>feas*ible*, not feas*able*.</code></pre>
+<h3 id="删除线">删除线</h3>
+<p><strong>Extension: <code>strikeout</code></strong></p>
+<p>要将一段文字加上水平线作为删除效果，将该段文字前后以 <code>~~</code> 包住即可。例如，</p>
+<pre><code>This ~~is deleted text.~~</code></pre>
+<h3 id="上标与下标">上标与下标</h3>
+<p><strong>Extension: <code>superscript</code>, <code>subscript</code></strong></p>
+<p>要输入上标可以用 <code>^</code> 字元将要上标的文字包起来；要输入下标可以用 <code>~</code> 字元将要下标的文字包起来。直接看范例，</p>
+<pre><code>H~2~O is a liquid.  2^10^ is 1024.</code></pre>
+<p>如果要上标或下标的文字中包含了空白，那么这个空白字元之前必须加上反斜线。（这是为了避免一般使用下的 <code>~</code> 和 <code>^</code> 在非预期的情况下产生出意外的上标或下标。）所以，如果你想要让字母 P 后面跟着下标文字 'a cat'，那么就要输入 <code>P~a\ cat~</code>，而不是 <code>P~a cat~</code>。</p>
+<h3 id="字面文字">字面文字</h3>
+<p>要让一小段文字直接以其字面形式呈现，可以用反引号将其包住：</p>
+<pre><code>What is the difference between `&gt;&gt;=` and `&gt;&gt;`?</code></pre>
+<p>如果字面文字中也包含了反引号，那就使用双重反引号包住：</p>
+<pre><code>Here is a literal backtick `` ` ``.</code></pre>
+<p>（在起始反引号后的空白以及结束反引号前的空白都会被忽略。）</p>
+<p>一般性的规则如下，字面文字区段是以连续的反引号字元作为开始（反引号后的空白字元为可选），一直到同样数目的反引号字元出现才结束（反引号前的空白字元也为可选）。</p>
+<p>要注意的是，反斜线跳脱字元（以及其他 markdown 结构）在字面文字的上下文中是没有效果的：</p>
+<pre><code>This is a backslash followed by an asterisk: `\*`.</code></pre>
+<p><strong>Extension: <code>inline_code_attributes</code></strong></p>
+<p>与<a href="#围栏代码区块">围栏代码区块</a>一样，字面文字也可以附加属性：</p>
+<pre><code>`&lt;$&gt;`{.haskell}</code></pre>
+<h2 id="数学">数学</h2>
+<p><strong>Extension: <code>tex_math_dollars</code></strong></p>
+<p>所有介于两个 <code>$</code> 字元之间的内容将会被视为 TeX 数学公式处理。开头的 <code>$</code> 右侧必须立刻接上任意文字，而结尾 <code>$</code> 的左侧同样也必须紧挨着文字。这样一来，<code>$20,000 and $30,000</code> 就不会被当作数学公式处理了。如果基于某些原因，有必须使用 <code>$</code> 符号将其他文字括住的需求时，那么可以在 <code>$</code> 前使用反斜线跳脱字元，这样 <code>$</code> 就不会被当作数学公式的分隔符。</p>
+<p>TeX 数学公式会在所有输出格式中印出。至于会以什么方式演算编排 (render) 则取决于输出的格式：</p>
+<dl>
+<dt>Markdown, LaTeX, Org-Mode, ConTeXt</dt>
+<dd><p>公式会以字面文字呈现在两个 <code>$</code> 符号之间。</p>
+</dd>
+<dt>reStructuredText</dt>
+<dd><p>公式会使用 <a href="http://www.american.edu/econ/itex2mml/mathhack.rst">此处</a> 所描述的 <code>:math:</code> 这个 &quot;interpreted text role&quot; 来进行演算编排。</p>
+</dd>
+<dt>AsciiDoc</dt>
+<dd><p>公式会以 <code>latexmath:[...]</code> 演算编排。</p>
+</dd>
+<dt>Texinfo</dt>
+<dd><p>公式会在 <code>@math</code> 指令中演算编排。</p>
+</dd>
+<dt>groff man</dt>
+<dd><p>公式会以去掉 <code>$</code> 后的字面文字演算编排。</p>
+</dd>
+<dt>MediaWiki</dt>
+<dd><p>公式会在 <code>&lt;math&gt;</code> 标签中演算编排。</p>
+</dd>
+<dt>Textile</dt>
+<dd><p>公式会在 <code>&lt;span class=&quot;math&quot;&gt;</code> 标签中演算编排。</p>
+</dd>
+<dt>RTF, OpenDocument, ODT</dt>
+<dd><p>如果可以的话，公式会以 unicode 字元演算编排，不然就直接使用字面字元。</p>
+</dd>
+<dt>Docbook</dt>
+<dd><p>如果使用了 <code>--mathml</code> 旗标，公式就会在 <code>inlineequation</code> 或 <code>informalequation</code> 标签中使用 mathml 演算编排。否则就会尽可能使用 unicode 字元演算编排。</p>
+</dd>
+<dt>Docx</dt>
+<dd><p>公式会以 OMML 数学标记的方式演算编排。</p>
+</dd>
+<dt>FictionBook2</dt>
+<dd><p>如果有使用 <code>--webtex</code> 选项，公式会以 Google Charts 或其他相容的网路服务演算编排为图片，并下载嵌入于电子书中。否则就会以字面文字显示。</p>
+</dd>
+<dt>HTML, Slidy, DZSlides, S5, EPUB</dt>
+<dd><p>公式会依照以下命令列选项的设置，以不同的方法演算编排为 HTML 代码。</p>
+<ol style="list-style-type: decimal">
+<li><p>预设方式是将 TeX 数学公式尽可能地以 unicode 字元演算编排，如同 RTF、DocBook 以及 OpenDocument 的输出。公式会被放在附有属性 <code>class=&quot;math&quot;</code> 的 <code>span</code> 标签内，所以可以在需要时给予不同的样式，使其突出于周遭的文字内容。</p></li>
+<li><p>如果使用了 <code>--latexmathml</code> 选项，TeX 数学公式会被显示于 <code>$</code> 或 <code>$$</code> 字元中，并放在附带 <code>LaTeX</code> 类别的 <code>&lt;span&gt;</code> 标签里。这段内容会用 <a href="http://math.etsu.edu/LaTeXMathML/">LaTeXMathML</a> script 演算编排为数学公式。（这个方法无法适用于所有浏览器，但在 Firefox 中是有效的。在不支援 LaTeXMathML 的浏览器中，TeX 数学公式会单纯的以两个 <code>$</code> 字元间的字面文字呈现。）</p></li>
+<li><p>如果使用了 <code>--jsmath</code> 选项，TeX数学公式会放在 <code>&lt;span&gt;</code> 标签（用于行内数学公式）或 <code>&lt;div&gt;</code> 标签（用于区块数学公式）中，并附带类别属性 <code>math</code>。这段内容会使用 <a href="http://www.math.union.edu/~dpvc/jsmath/">jsMath</a> script 来演算编排。</p></li>
+<li><p>如果使用了 <code>--mimetex</code> 选项，<a href="http://www.forkosh.com/mimetex.html">mimeTeX</a> CGI script 会被呼叫来产生每个 TeX 数学公式的图片。这适用于所有浏览器。<code>--mimetex</code> 选项有一个可选的 URL 参数。如果没有指定 URL，它会假设 mimeTeX CGI script 的位置在 <code>/cgi-bin/mimetex.cig</code>。</p></li>
+<li><p>如果使用了 <code>--gladtex</code> 选项，TeX 数学公式在 HTML 的输出中会被 <code>&lt;eq&gt;</code> 标签包住。产生的 <code>htex</code> 档案之后可以透过 <a href="http://ans.hsh.no/home/mgg/gladtex/">gladTeX</a> 处理，这会针对每个数学公式生成图片，并于最后生成一个包含这些图片连结的 <code>html</code> 档案。所以，整个处理流程如下：</p>
+<pre><code>pandoc -s --gladtex myfile.txt -o myfile.htex
+gladtex -d myfile-images myfile.htex
+# produces myfile.html and images in myfile-images</code></pre></li>
+<li><p>如果使用了 <code>--webtex</code> 选项，TeX 数学公式会被转换为 <code>&lt;img&gt;</code> 标签并连结到一个用以转换公式为图片的外部 script。公式将会编码为 URL 可接受格式并且与指定的 URL 参数串接。如果没有指定 URL，那么将会使用 Google Chart API (<code>http://chart.apis.google.com/chart?cht=tx&amp;chl=</code>)。</p></li>
+<li><p>如果使用了 <code>--mathjax</code> 选项，TeX 数学公式将会被包在 <code>\(...\)</code>（用于行内数学公式）或 <code>\[...\]</code>（用于区块数学公式）之间显示，并且放在附带类别 <code>math</code> 的 <code>&lt;span&gt;</code> 标签之中。这段内容会使用 <a href="http://www.mathjax.org/">MathJax</a> script 演算编排为页面上的数学公式。</p></li>
+</ol>
+</dd>
+</dl>
+<h2 id="raw-html">Raw HTML</h2>
+<p><strong>Extension: <code>raw_html</code></strong></p>
+<p>Markdown 允许你在文件中的任何地方插入原始 HTML（或 DocBook）指令（除了在字面文字上下文处，此时的 <code>&lt;</code>, <code>&gt;</code> 和 <code>&amp;</code> 都会按其字面意义显示）。（技术上而言这不算扩充功能，因为原始 markdown 本身就有提供此功能，但做成扩充形式便可以在有特殊需要的时候关闭此功能。）</p>
+<p>输出 HTML, S5, Slidy, Slideous, DZSlides, EPUB, Markdown 以及 Textile 等格式时，原始 HTML 代码会不作修改地保留至输出档案中；而其他格式的输出内容则会将原始 HTML 代码去除掉。</p>
+<p><strong>Extension: <code>markdown_in_html_blocks</code></strong></p>
+<p>原始 markdown 允许你插入 HTML“区块”：所谓的 HTML 区块是指，上下各由一个空白行所隔开，开始与结尾均由所在行最左侧开始的一连串对称均衡的 HTML 标签。在这个区块中，任何内容都会当作是 HTML 来分析，而不再视为 markdown；所以（举例来说），<code>*</code> 符号就不再代表强调。</p>
+<p>当指定格式为 <code>markdown_strict</code> 时，Pandoc 会以上述方式处理；但预设情况下，Pandoc 能够以 markdown 语法解读 HTML 区块标签中的内容。举例说明，Pandoc 能够将底下这段</p>
+<pre><code>&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;*one*&lt;/td&gt;
+        &lt;td&gt;[a link](http://google.com)&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+<p>转换为</p>
+<pre><code>&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;em&gt;one&lt;/em&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;a href=&quot;http://google.com&quot;&gt;a link&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+<p>而 <code>Markdown.pl</code> 则是保留该段原样。</p>
+<p>这个规则只有一个例外：那就是介于 <code>&lt;script&gt;</code> 与 <code>&lt;style&gt;</code> 之间的文字都不会被拿来当作 markdown 解读。</p>
+<p>这边与原始 markdown 的分歧，主要是为了让 markdown 能够更便利地混入 HTML 区块元素。比方说，一段 markdown 文字可以用 <code>&lt;div&gt;</code> 标签将其前后包住来进行样式指定，而不用担心里面的 markdown 不会被解译到。</p>
+<h2 id="raw-tex">Raw TeX</h2>
+<p><strong>Extension: <code>raw_tex</code></strong></p>
+<p>除了 HTML 之外，pandoc 也接受文件中嵌入原始 LaTeX, TeX 以及 ConTeXt 代码。行内 TeX 指令会被保留并不作修改地输出至 LaTeX 与 ConTeXt 格式中。所以，举例来说，你可以使用 LaTeX 来导入 BibTeX 的引用文献：</p>
+<pre><code>This result was proved in \cite{jones.1967}.</code></pre>
+<p>请注意在 LaTeX 环境下时，像是底下</p>
+<pre><code>\begin{tabular}{|l|l|}\hline
+Age &amp; Frequency \\ \hline
+18--25  &amp; 15 \\
+26--35  &amp; 33 \\
+36--45  &amp; 22 \\ \hline
+\end{tabular}</code></pre>
+<p>位在 <code>begin</code> 与 <code>end</code> 标签之间的内容，都会被当作是原始 LaTeX 资料解读，而不会视为 markdown。</p>
+<p>行内 LaTeX 在输出至 Markdown, LaTeX 及 ConTeXt 之外的格式时会被忽略掉。</p>
+<h2 id="latex-巨集">LaTeX 巨集</h2>
+<p><strong>Extension: <code>latex_macros</code></strong></p>
+<p>当输出格式不是 LaTeX 时，pandoc 会分析 LaTeX 的 <code>\newcommand</code> 和 <code>\renewcommand</code> 定义，并套用其产生的巨集到所有 LaTeX 数学公式中。所以，举例来说，下列指令对于所有的输出格式均有作用，而非仅仅作用于 LaTeX 格式：</p>
+<pre><code>\newcommand{\tuple}[1]{\langle #1 \rangle}
+
+$\tuple{a, b, c}$</code></pre>
+<p>在 LaTeX 的输出中，<code>\newcommand</code> 定义会单纯不作修改地保留至输出结果。</p>
+<h2 id="连结">连结</h2>
+<p>Markdown 接受以下数种指定连结的方式。</p>
+<h3 id="自动连结">自动连结</h3>
+<p>如果你用角括号将一段 URL 或是 email 位址包起来，它会自动转换成连结：</p>
+<pre><code>&lt;http://google.com&gt;
+&lt;sam@green.eggs.ham&gt;</code></pre>
+<h3 id="行内连结">行内连结</h3>
+<p>一个行内连结包含了位在方括号中的连结文字，以及方括号后以圆括号包起来的 URL。（你可以选择性地在 URL 后面加入连结标题，标题文字要放在引号之中。）</p>
+<pre><code>This is an [inline link](/url), and here&#39;s [one with
+a title](http://fsf.org &quot;click here for a good time!&quot;).</code></pre>
+<p>方括号与圆括号之间不能有空白。连结文字可以包含格式（例如强调），但连结标题则否。</p>
+<h3 id="参考连结">参考连结</h3>
+<p>一个 <strong>明确</strong> 的参考连结包含两个部分，连结本身以及连结定义，其中连结定义可以放在文件的任何地方（不论是放在连结所在处之前或之后）。</p>
+<p>连结本身是由两组方括号所组成，第一组方括号中为连结文字，第二组为连结标签。（在两个方括号间可以有空白。）连结定义则是以方括号框住的连结标签作开头，后面跟着一个冒号一个空白，再接着一个 URL，最后可以选择性地（在一个空白之后）加入由引号或是圆括号包住的连结标题。</p>
+<p>以下是一些范例：</p>
+<pre><code>[my label 1]: /foo/bar.html  &quot;My title, optional&quot;
+[my label 2]: /foo
+[my label 3]: http://fsf.org (The free software foundation)
+[my label 4]: /bar#special  &#39;A title in single quotes&#39;</code></pre>
+<p>连结的 URL 也可以选择性地以角括号包住：</p>
+<pre><code>[my label 5]: &lt;http://foo.bar.baz&gt;</code></pre>
+<p>连结标题可以放在第二行：</p>
+<pre><code>[my label 3]: http://fsf.org
+  &quot;The free software foundation&quot;</code></pre>
+<p>需注意连结标签并不区分大小写。所以下面的例子会建立合法的连结：</p>
+<pre><code>Here is [my link][FOO]
+
+[Foo]: /bar/baz</code></pre>
+<p>在一个 <strong>隐性</strong> 参考连结中，第二组方括号的内容是空的，甚至可以完全地略去：</p>
+<pre><code>See [my website][], or [my website].
+
+[my website]: http://foo.bar.baz</code></pre>
+<p>注意：在 <code>Markdown.pl</code> 以及大多数其他 markdown 实作中，参考连结的定义不能存在于嵌套结构中，例如清单项目或是区块引言。Pandoc lifts this arbitrary seeming restriction。所以虽然下面的语法在几乎所有其他实作中都是错误的，但在 pandoc 中可以正确处理：</p>
+<pre><code>&gt; My block [quote].
+&gt;
+&gt; [quote]: /foo</code></pre>
+<h3 id="内部连结">内部连结</h3>
+<p>要连结到同一份文件的其他章节，可使用自动产生的 ID（参见 <a href="#html-latex-与-context-的标题识别符">HTML, LaTeX 与 ConTeXt 的标题识别符</a> 一节后半）。例如：</p>
+<pre><code>See the [Introduction](#introduction).</code></pre>
+<p>或是</p>
+<pre><code>See the [Introduction].
+
+[Introduction]: #introduction</code></pre>
+<p>内部连结目前支援的格式有 HTML（包括 HTML slide shows 与 EPUB）、LaTeX 以及 ConTeXt。</p>
+<h2 id="图片">图片</h2>
+<p>在连结语法的前面加上一个 <code>!</code> 就是图片的语法了。连结文字将会作为图片的替代文字（alt text）：</p>
+<pre><code>![la lune](lalune.jpg &quot;Voyage to the moon&quot;)
+
+![movie reel]
+
+[movie reel]: movie.gif</code></pre>
+<h3 id="附上说明的图片">附上说明的图片</h3>
+<p><strong>Extension: <code>implicit_figures</code></strong></p>
+<p>一个图片若自身单独存在一个段落中，那么将会以附上图片说明 (caption) 的图表 (figure) 形式呈现。<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>（在 LaTeX 中，会使用图表环境；在 HTML 中，图片会被放在具有 <code>figure</code> 类别的 <code>div</code> 元素中，并会附上一个具有 <code>caption</code> 类别的 <code>p</code> 元素。）图片的替代文字同时也会用来作为图片说明。</p>
+<pre><code>![This is the caption](/url/of/image.png)</code></pre>
+<p>如果你只是想要个一般的行内图片，那么只要让图片不是段落里唯一的元素即可。一个简单的方法是在图片后面插入一个不断行空格：</p>
+<pre><code>![This image won&#39;t be a figure](/url/of/image.png)\</code></pre>
+<h2 id="脚注">脚注</h2>
+<p><strong>Extension: <code>footnotes</code></strong></p>
+<p>Pandoc's markdown 支援脚注功能，使用以下的语法：</p>
+<pre><code>Here is a footnote reference,[^1] and another.[^longnote]
+
+[^1]: Here is the footnote.
+
+[^longnote]: Here&#39;s one with multiple blocks.
+
+    Subsequent paragraphs are indented to show that they
+belong to the previous footnote.
+
+        { some.code }
+
+    The whole paragraph can be indented, or just the first
+    line.  In this way, multi-paragraph footnotes work like
+    multi-paragraph list items.
+
+This paragraph won&#39;t be part of the note, because it
+isn&#39;t indented.</code></pre>
+<p>脚注参考用的 ID 不得包含空白、tabs 或换行字元。这些 ID 只会用来建立脚注位置与脚注文字的对应关连；在输出时，脚注将会依序递增编号。</p>
+<p>脚注本身不需要放在文件的最后面。它们可以放在文件里的任何地方，但不能被放入区块元素（清单、区块引言、表格等）之中。</p>
+<p><strong>Extension: <code>inline_notes</code></strong></p>
+<p>Pandoc 也支援了行内脚注（尽管，与一般脚注不同，行内脚注不能包含多个段落）。其语法如下：</p>
+<pre><code>Here is an inline note.^[Inlines notes are easier to write, since
+you don&#39;t have to pick an identifier and move down to type the
+note.]</code></pre>
+<p>行内与一般脚注可以自由交错使用。</p>
+<h2 id="引用">引用</h2>
+<p><strong>Extension: <code>citations</code></strong></p>
+<p>Pandoc 能够以数种形式自动产生引用与参考书目（使用 Andrea Rossato 的 <code>hs-citeproc</code>）。为了使用这项功能，你需要一个下列其中一种格式的参考书目资料库：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Format</th>
+<th align="left">File extension</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">MODS</td>
+<td align="left">.mods</td>
+</tr>
+<tr class="even">
+<td align="left">BibLaTeX</td>
+<td align="left">.bib</td>
+</tr>
+<tr class="odd">
+<td align="left">BibTeX</td>
+<td align="left">.bibtex</td>
+</tr>
+<tr class="even">
+<td align="left">RIS</td>
+<td align="left">.ris</td>
+</tr>
+<tr class="odd">
+<td align="left">EndNote</td>
+<td align="left">.enl</td>
+</tr>
+<tr class="even">
+<td align="left">EndNote XML</td>
+<td align="left">.xml</td>
+</tr>
+<tr class="odd">
+<td align="left">ISI</td>
+<td align="left">.wos</td>
+</tr>
+<tr class="even">
+<td align="left">MEDLINE</td>
+<td align="left">.medline</td>
+</tr>
+<tr class="odd">
+<td align="left">Copac</td>
+<td align="left">.copac</td>
+</tr>
+<tr class="even">
+<td align="left">JSON citeproc</td>
+<td align="left">.json</td>
+</tr>
+</tbody>
+</table>
+<p>需注意的是副档名 <code>.bib</code> 一般而言同时适用于 BibTeX 与 BibLaTeX 的档案，不过你可以使用 <code>.bibtex</code> 来强制指定 BibTeX。</p>
+<p>你需要使用命令列选项 <code>--bibliography</code> 来指定参考书目档案（如果有多个书目档就得反覆指定）。</p>
+<p>预设情况下，pandoc 会在引用文献与参考书目中使用芝加哥“作者－日期”格式。要使用其他的格式，你需要用 <code>--csl</code> 选项来指定一个 <a href="http://CitationStyles.org">CSL</a> 1.0 格式的档案。关于建立与修改 CSL 格式的入门可以在 <a href="http://citationstyles.org/downloads/primer.html">http://citationstyles.org/downloads/primer.html</a> 这边找到。<a href="https://github.com/citation-style-language/styles">https://github.com/citation-style-language/styles</a> 是 CSL 格式的档案库。也可以在 <a href="http://zotero.org/styles">http://zotero.org/styles</a> 以简单的方式浏览。</p>
+<p>引用资讯放在方括号中，以分号区隔。每一条引用都会有个 key，由 <code>@</code> 加上资料库中的引用 ID 组成，并且可以选择性地包含前缀、定位以及后缀。以下是一些范例：</p>
+<pre><code>Blah blah [see @doe99, pp. 33-35; also @smith04, ch. 1].
+
+Blah blah [@doe99, pp. 33-35, 38-39 and *passim*].
+
+Blah blah [@smith04; @doe99].</code></pre>
+<p>在 <code>@</code> 前面的减号 (<code>-</code>) 将会避免作者名字在引用中出现。这可以用在已经提及作者的文章场合中：</p>
+<pre><code>Smith says blah [-@smith04].</code></pre>
+<p>你也可以在文字中直接插入引用资讯，方式如下：</p>
+<pre><code>@smith04 says blah.
+
+@smith04 [p. 33] says blah.</code></pre>
+<p>如果引用格式档需要产生一份引用作品的清单，这份清单会被放在文件的最后面。一般而言，你需要以一个适当的标题结束你的文件：</p>
+<pre><code>last paragraph...
+
+# References</code></pre>
+<p>如此一来参考书目就会被放在这个标题后面了。</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>之所以有这条规则，主要是要避免以人名头文字缩写作为开头的段落所带来的混淆，像是</p>
+<pre><code>B. Russell was an English philosopher.</code></pre>
+<p>这样就不会被当作清单项目了。</p>
+<p>这条规则并不会避免以下</p>
+<pre><code>(C) 2007 Joe Smith</code></pre>
+<p>这样的叙述被解释成清单项目。在这情形下，可以使用反斜线：</p>
+<pre><code>(C\) 2007 Joe Smith</code></pre>
+<a href="#fnref1">↩</a></li>
+<li id="fn2"><p><a href="http://www.justatheory.com/computers/markup/modest-markdown-proposal.html">David Wheeler</a> 对于 markdown 的建议也同时影响了我。<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>这个方案是由 Michel Fortin 在 <a href="http://six.pairlist.net/pipermail/markdown-discuss/2005-March/001097.html">Markdown discussion list</a> 的讨论中所提出。<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>译注：straight quotes 指的是左右两侧都长得一样的引号，例如我们直接在键盘上打出来的单引号或双引号；curly quotes 则是左右两侧不同，有从两侧向内包夹视觉效果的引号。<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>这项功能尚未在 RTF, OpenDocument 或 ODT 格式上实现。在这些格式中，你会得到一个在段落中只包含自己的图片，而无图片说明。<a href="#fnref5">↩</a></p></li>
+</ol>
+</div>
+
+<!--Baidu tongji-->
+<!--
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?c33f8eb1bbd2cf29ae19a3492ccca0c6";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+-->
+<!--Baidu tongji-->
+<div id="footer">
+    <p class="footer_subline">Contact: jiangqingu@gmail.com</p>
+</div>
+</div> <!--all-->
+</body>
+</html>
