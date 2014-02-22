@@ -62,19 +62,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#如何写脚本">如何写脚本：</a></li>
 <li><a href="#bash脚本执行方式">Bash脚本执行方式</a></li>
 <li><a href="#特殊字符">特殊字符</a></li>
-<li><a href="#变量">变量</a><ul>
-<li><a href="#变量替换">变量替换</a></li>
-<li><a href="#变量赋值">变量赋值</a></li>
-<li><a href="#变量类型">变量类型</a></li>
-<li><a href="#特殊变量">特殊变量</a></li>
-</ul></li>
+<li><a href="#变量">变量</a></li>
 </ul></li>
 </ul>
 </div>
  <!--if(toc)-->
 
-<h1 id="bash">Bash</h1>
-<h2 id="bash简介">Bash简介</h2>
+<h2 id="bash">Bash</h2>
+<h3 id="bash简介">Bash简介</h3>
 <!---date:2014-02-22-->
 <p>Bash是：</p>
 <ul>
@@ -94,7 +89,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>需要多维数组支持，数据结构支持或GUI支持等</li>
 <li>闭源需求</li>
 </ul>
-<h2 id="如何写脚本">如何写脚本：</h2>
+<h3 id="如何写脚本">如何写脚本：</h3>
 <p>Bash脚本代码放在文本文件中，一般以.sh或.bash后缀形式表明其为shell脚本（实际上Linux下不是以后缀名识别程序属性，这与Windows不同）。</p>
 <p>shell脚本一般格式：</p>
 <pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
@@ -112,13 +107,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <ul>
 <li>exit 0表明脚本退出状态码，0表示执行成功，其他为失败;该语句也可以忽略。注：查询执行状态命令为<code>echo $?</code></li>
 </ul>
-<h2 id="bash脚本执行方式">Bash脚本执行方式</h2>
+<h3 id="bash脚本执行方式">Bash脚本执行方式</h3>
 <ul>
 <li>命令行上直接<code>sh script.sh</code>或<code>bash script.sh</code> (不推荐使用sh &lt;scriptname, 因为这禁用了脚本从stdin中读数据的功能. )</li>
 <li>脚本具有可执行属性: <code>chmod u+x script.sh; ./script.sh</code></li>
 <li>把脚本移动到/usr/local/bin下, (当然是以root身份), 来让你的脚本对所有用户都有用. 这样以来, 用户就可以在命令行上简单的输入<code>scriptname [ENTER]</code>就可以运行这个脚本了,不需要后缀。</li>
 </ul>
-<h2 id="特殊字符">特殊字符</h2>
+<h3 id="特殊字符">特殊字符</h3>
 <table>
 <col width="12%" />
 <col width="50%" />
@@ -353,13 +348,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </tr>
 </tbody>
 </table>
-<h2 id="变量">变量</h2>
-<h3 id="变量替换">变量替换</h3>
+<h3 id="变量">变量</h3>
+<h4 id="变量替换">变量替换</h4>
 <p>变量的名字就是变量保存值的地方. 引用变量的值就叫做变量替换.</p>
 <p>被一对双引号(&quot; &quot;)括起来的变量替换是不会被阻止的. 所以双引号被称为部分引用, 有时候又被称为&quot;弱引用&quot;. 但是如果使用单引号的话(' '), 那么变量替换就会被禁止了, 变量名只会被解释成字面的意思, 不会发生变量替换. 所以单引号被称为全引用, 有时候也被称为&quot;强引用&quot;.</p>
 <p><strong>注意<span class="math">$variable事实上只是`$</span>{variable}<code>的简写形式. 在某些上下文中</code><span class="math">$variable`可能会引起错误, 这时候你就需要用`$</span>{variable}`了</strong></p>
 <p><strong><em>注意, 在赋值的的时候, 等号前后一定不要有空格</em></strong></p>
-<h3 id="变量赋值">变量赋值</h3>
+<h4 id="变量赋值">变量赋值</h4>
 <pre><code># 简单赋值
 a=899
 # 使用let算术复值
@@ -372,9 +367,28 @@ done
 # 使用read命令赋值
 read d</code></pre>
 <p>使用$(...)机制来进行变量赋值(这是一种比后置引用(反引号`)更新的一种方法). 事实上这两种方法都是命令替换的一种形式.</p>
-<h3 id="变量类型">变量类型</h3>
+<h4 id="变量类型">变量类型</h4>
 <p>不像其他程序语言一样, Bash并不对变量区分&quot;类型&quot;. 本质上, Bash变量都是字符串. 但是依赖于具体的上下文, Bash也允许比较操作和整数操作. 其中的关键因素就是, 变量中的值是否只有数字.</p>
-<h3 id="特殊变量">特殊变量</h3>
+<h4 id="特殊变量">特殊变量</h4>
+<ul>
+<li>局部变量</li>
+</ul>
+<p>代码块或函数中的变量</p>
+<ul>
+<li>环境变量</li>
+</ul>
+<p>脚本设置环境变量使用export命令，子进程继承父进程的环境变量，但子进程是 能够export变量影响父进程的。</p>
+<ul>
+<li>位置参数</li>
+</ul>
+<p>命令行传递给脚本的参数：<code>$0,$1,$2,...</code> <code>$0</code>是脚本文件自身的名字，<code>$1</code>是第一个参数，依次类推，第10个参数开始 要用大括号扩起来，如<code>${10}</code></p>
+<p><code>$*</code>和<code>$@</code>变量表示所有位置参数.</p>
+<p><code>$#</code>表示位置参数个数。</p>
+<p>{}标记法提供了一种提取从命令行传递到脚本的最后一个位置参数的简单办法. 但是这种方法同时还需要使用间接引用.</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="ot">args=$#</span>
+<span class="ot">lastarg=${!args}</span>
+<span class="co"># 或 lastarg=${!#}</span></code></pre>
+<p>一些脚本可能会依赖于使用不同的调用名字, 来表现出不同的行为. 如果想要达到这种目的, 一般都需要在脚本中检查$0. 因为脚本只能够有一个真正的文件名, 如果要产生多个名字, 必须使用符号链接。</p>
 
 <!--Baidu tongji-->
 <!--
