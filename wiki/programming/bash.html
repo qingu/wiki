@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="generator" content="pandoc" />
+
+
+
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+</style>
+
+<link rel="stylesheet" href="../../style.css" type="text/css" />
+
+
+
+</head>
+
+
+<body>
+<div id="all">
+
+<div id="all">
+    <div id="header">
+        <ul id="top-nav">
+            <li>
+            <a href="http://metman.info/wiki/index.html">Wiki首页</a>
+            </li>
+            <li>
+            <a href="http://metman.info">Blog首页</a>
+            </li>
+            <li>
+            <a href="/about.html">about</a>
+            </li>
+        </ul>
+</div>
+<p>date: 2014-02-22</p>
+
+ <!--if(title)-->
+
+<p>目录:</p>
+<div id="TOC">
+<ul>
+<li><a href="#bash">Bash</a><ul>
+<li><a href="#bash简介">Bash简介</a></li>
+<li><a href="#如何写脚本">如何写脚本：</a></li>
+<li><a href="#bash脚本执行方式">Bash脚本执行方式</a></li>
+<li><a href="#特殊字符">特殊字符</a></li>
+<li><a href="#变量">变量</a></li>
+</ul></li>
+</ul>
+</div>
+ <!--if(toc)-->
+
+<h2 id="bash">Bash</h2>
+<h3 id="bash简介">Bash简介</h3>
+<!---date:2014-02-22-->
+<p>Bash是：</p>
+<ul>
+<li>简单的是一群系统命令的集合，实现代码的复用性</li>
+<li>命令有逻辑执行流程，如循环、判断</li>
+</ul>
+<p>Bash适用于：</p>
+<ul>
+<li>Linux系统管理</li>
+<li>日常工作自动化</li>
+</ul>
+<p>Bash不适用于：</p>
+<ul>
+<li>要求计算效率或大型数学计算任务（一般使用C/Fortran）</li>
+<li>跨平台移植需求（一般使用C或Java）</li>
+<li>大型复杂的应用</li>
+<li>需要多维数组支持，数据结构支持或GUI支持等</li>
+<li>闭源需求</li>
+</ul>
+<h3 id="如何写脚本">如何写脚本：</h3>
+<p>Bash脚本代码放在文本文件中，一般以.sh或.bash后缀形式表明其为shell脚本（实际上Linux下不是以后缀名识别程序属性，这与Windows不同）。</p>
+<p>shell脚本一般格式：</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash</span>
+某些变量申明赋值
+命令集合
+<span class="kw">exit</span> 0</code></pre>
+<ul>
+<li>shell脚本第一行一般是#!/bin/sh，指明该脚本使用哪种脚本解释器(如果不指明，Linux下默认是bash)。使用#!/bin/sh是因为大多数的商业UNIX系统上都是以Bourne shell作为默认shell, 这样可以使脚本移植到non-Linux的机器上, 虽然这将会牺牲Bash一些独特的特征. 但是脚本将与POSIX 的sh标准相一致. #!也可以被忽略， 不过这样你的脚本文件就只能是一些命令的集合, 不能够使用shell内建的指令了</li>
+</ul>
+<hr />
+<p><em>编程技巧：</em></p>
+<p>平时注意收集具有代表性的“模板”代码，使用模块化的方式编写脚本，生成一个自己的代码库，最大程度上实现代码的复用。</p>
+<p>使用变量代替写死的常量；将重复的代码放到一个函数中</p>
+<hr />
+<ul>
+<li>exit 0表明脚本退出状态码，0表示执行成功，其他为失败;该语句也可以忽略。注：查询执行状态命令为<code>echo $?</code></li>
+</ul>
+<h3 id="bash脚本执行方式">Bash脚本执行方式</h3>
+<ul>
+<li>命令行上直接<code>sh script.sh</code>或<code>bash script.sh</code> (不推荐使用sh &lt;scriptname, 因为这禁用了脚本从stdin中读数据的功能. )</li>
+<li>脚本具有可执行属性: <code>chmod u+x script.sh; ./script.sh</code></li>
+<li>把脚本移动到/usr/local/bin下, (当然是以root身份), 来让你的脚本对所有用户都有用. 这样以来, 用户就可以在命令行上简单的输入<code>scriptname [ENTER]</code>就可以运行这个脚本了,不需要后缀。</li>
+</ul>
+<h3 id="特殊字符">特殊字符</h3>
+<table>
+<col width="12%" />
+<col width="50%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="center">符号</th>
+<th align="center">含义</th>
+<th align="center">举列</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">#</td>
+<td align="center">脚本注释符（#!除外）</td>
+<td align="center"># This is a comment</td>
+</tr>
+<tr class="even">
+<td align="center">;</td>
+<td align="center">命令分割符，用于一行写多个命令</td>
+<td align="center">cd /opt; ls</td>
+</tr>
+<tr class="odd">
+<td align="center">;;</td>
+<td align="center">终止case选项</td>
+<td align="center">case &quot;$variable&quot; in abc) echo &quot;abc&quot; ;; xyz) echo &quot;xyz&quot; ;; esac</td>
+</tr>
+<tr class="even">
+<td align="center">.</td>
+<td align="center">点命令，等价于source命令，bash 内建命令; dot作为文件名的一部分，如果放在文件 名开头，为“隐藏”文件，如果作为目录名 一个单独点代表当前工作目录; 正则表达式的通配符，匹配任何单个字符</td>
+<td align="center">. ~/.bashrc touch .zshrc cd ../</td>
+</tr>
+<tr class="odd">
+<td align="center">&quot;</td>
+<td align="center">双引号,&quot;string&quot;会阻止解释字符串中 大部分特殊字符</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">'</td>
+<td align="center">单引号，'string'阻止所有特殊字符解释</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">,</td>
+<td align="center">逗号操作符，链接一系列算数操作，虽然 里面所以内容都被运行，但只有最后一 项被返回</td>
+<td align="center">let &quot;t2 = ((a = 9, 15/3))&quot; #Set &quot;a = 9&quot; and &quot;t2 = 15/3&quot;</td>
+</tr>
+<tr class="even">
+<td align="center"><br /></td>
+<td align="center">转义符</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">/</td>
+<td align="center">文件名路径分隔符；也可作除法操作符</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">`</td>
+<td align="center">命令替换</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">:</td>
+<td align="center">冒号，空命令，等价于“NOP”，也可以被 认为与shell内建命令true作用相同。 &quot;:&quot;命令是一个bash内建命令，退出码 是&quot;true&quot;(0); 在if/then中作为占位符</td>
+<td align="center">: echo $? #0</td>
+</tr>
+<tr class="even">
+<td align="center">!</td>
+<td align="center">取反操作符</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">*</td>
+<td align="center">通配符，匹配给定目录下任何文件名； 正则表达式中，匹配任意个数（包含0 个）的字符；算数操作符表示乘法；</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">?</td>
+<td align="center">测试操作符；通配符，匹配单个字符; 正则表达式中也表示一个字符</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">$</td>
+<td align="center">变量替换，变量前加上它引用变量值; 正则表达式中表示行结束符</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">${}</td>
+<td align="center">参数替换</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math"> * </span>@</td>
+<td align="center">位置参数</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">$?</td>
+<td align="center">退出状态码变量</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">$$</td>
+<td align="center">进程ID变量</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">()</td>
+<td align="center">命令组，括号中命令列表将会作为一个子 shell来运行；初始化数组用法</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">{x,y,z}</td>
+<td align="center">大括号扩展</td>
+<td align="center">cp file22.{txt,backup}</td>
+</tr>
+<tr class="even">
+<td align="center">{}</td>
+<td align="center">代码块，创建一个匿名函数；与标准函数 不同的是，在其中声明的变量，对于脚本 其它部分代码来说还是可见的</td>
+<td align="center">{ read line1; read line2 } &lt; $file</td>
+</tr>
+<tr class="odd">
+<td align="center">{};</td>
+<td align="center">路径名，一般都在find命令中使用；这 不是一个shell内建命令</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">[]</td>
+<td align="center">条件测试，[是shell内建test命令的一部 分; 数组元素;</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>[[]]</code></td>
+<td align="center">测试</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">(())</td>
+<td align="center">整数扩展，扩展并计算在(())中整数表达 式</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">&gt; &amp;&gt; &gt;&amp; &gt;&gt; &lt; &lt;&gt;</td>
+<td align="center">重定向</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">&lt;&lt;</td>
+<td align="center">用在here document中重定向</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">&lt;&lt;&lt;</td>
+<td align="center">用在here string中重定向</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">&lt;,&gt;</td>
+<td align="center">正则表达式中单词边界</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">|</td>
+<td align="center">管道，stdou &gt; stderr</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">&gt;|</td>
+<td align="center">强制重定向</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">||</td>
+<td align="center">逻辑或</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">&amp;</td>
+<td align="center">后台运行命令，在一个脚本中， 命令和循环都可能运行在后台</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">&amp;&amp;</td>
+<td align="center">逻辑与</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">-</td>
+<td align="center">选项，前缀; 用于重定向stdin或stdout[-]. ; &quot;-&quot;本身并不是一个bash操作，而是 一个可以被特定的unix工具识别的 选项，特指那些可以写输出到stdout 的工具，比如tar,cat等; 或指先前的目录 cd -</td>
+<td align="center">echo &quot;whatever&quot;|cat -</td>
+</tr>
+<tr class="odd">
+<td align="center">=</td>
+<td align="center">等号，赋值操作</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">+</td>
+<td align="center">加号;一种正则表达式</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">%</td>
+<td align="center">取模;模式匹配操作</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">～</td>
+<td align="center">home目录，相当与$HOME内部变量， ~bozo是bozo的home目录</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">~+</td>
+<td align="center">当前工作目录，相当于$PWD内部变量</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">~-</td>
+<td align="center">先前工作目录，相当于$OLDPWD内部 变量</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">=~</td>
+<td align="center">正则表达式匹配</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">^</td>
+<td align="center">行首</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="变量">变量</h3>
+<h4 id="变量替换">变量替换</h4>
+<p>变量的名字就是变量保存值的地方. 引用变量的值就叫做变量替换.</p>
+<p>被一对双引号(&quot; &quot;)括起来的变量替换是不会被阻止的. 所以双引号被称为部分引用, 有时候又被称为&quot;弱引用&quot;. 但是如果使用单引号的话(' '), 那么变量替换就会被禁止了, 变量名只会被解释成字面的意思, 不会发生变量替换. 所以单引号被称为全引用, 有时候也被称为&quot;强引用&quot;.</p>
+<p><strong>注意<span class="math">$variable事实上只是`$</span>{variable}<code>的简写形式. 在某些上下文中</code><span class="math">$variable`可能会引起错误, 这时候你就需要用`$</span>{variable}`了</strong></p>
+<p><strong><em>注意, 在赋值的的时候, 等号前后一定不要有空格</em></strong></p>
+<h4 id="变量赋值">变量赋值</h4>
+<pre><code># 简单赋值
+a=899
+# 使用let算术复值
+let b=16+5
+# 在for循环中（伪赋值）
+for c in 7 8 9 10
+do
+  echo -n &quot;$a&quot;
+done
+# 使用read命令赋值
+read d</code></pre>
+<p>使用$(...)机制来进行变量赋值(这是一种比后置引用(反引号`)更新的一种方法). 事实上这两种方法都是命令替换的一种形式.</p>
+<h4 id="变量类型">变量类型</h4>
+<p>不像其他程序语言一样, Bash并不对变量区分&quot;类型&quot;. 本质上, Bash变量都是字符串. 但是依赖于具体的上下文, Bash也允许比较操作和整数操作. 其中的关键因素就是, 变量中的值是否只有数字.</p>
+<h4 id="特殊变量">特殊变量</h4>
+
+<!--Baidu tongji-->
+<!--
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?c33f8eb1bbd2cf29ae19a3492ccca0c6";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+-->
+<!--Baidu tongji-->
+<div id="footer">
+    <p class="footer_subline">Contact: jiangqingu@gmail.com</p>
+</div>
+</div> <!--all-->
+</body>
+</html>
