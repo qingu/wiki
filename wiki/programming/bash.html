@@ -50,7 +50,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
             </li>
         </ul>
 </div>
-<p>date: 2014-02-22</p>
+<p>date: 2014-02-23</p>
 
  <!--if(title)-->
 
@@ -68,6 +68,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#变量类型">变量类型</a></li>
 <li><a href="#特殊变量">特殊变量</a></li>
 </ul></li>
+<li><a href="#引用">引用</a><ul>
+<li><a href="#引用变量">引用变量</a></li>
+<li><a href="#转义">转义</a></li>
+</ul></li>
+<li><a href="#退出状态码">退出状态码</a></li>
+<li><a href="#条件判断">条件判断</a><ul>
+<li><a href="#条件测试结构">条件测试结构</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </div>
@@ -75,7 +83,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 
 <h1 id="bash">Bash</h1>
 <h2 id="bash简介">Bash简介</h2>
-<!---date:2014-02-22-->
+<!---date:2014-02-23-->
 <p>Bash是：</p>
 <ul>
 <li>简单的是一群系统命令的集合，实现代码的复用性</li>
@@ -394,6 +402,103 @@ read d</code></pre>
 <span class="ot">lastarg=${!args}</span>
 <span class="co"># 或 lastarg=${!#}</span></code></pre>
 <p>一些脚本可能会依赖于使用不同的调用名字, 来表现出不同的行为. 如果想要达到这种目的, 一般都需要在脚本中检查$0. 因为脚本只能够有一个真正的文件名, 如果要产生多个名字, 必须使用符号链接。</p>
+<h2 id="引用">引用</h2>
+<h3 id="引用变量">引用变量</h3>
+<p>引用意味着得到原有的字面意思，使用双引号扩起来保护字符串中特殊字符不被shell或shell脚本重新解释或扩展。</p>
+<p>某些程序和工具能够重新解释或者扩展被引用的特殊字符. 引用的一个重要作用就是保护命令行参数不被shell解释, 但是还是能够让正在调用的程序来扩展它.</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">grep</span> <span class="st">&#39;[Ff]irst&#39;</span> *.txt
+<span class="co">#[Ff]irst使用单引号扩起来保护其不被shell解释扩展，能正确被grep工具扩展</span>
+<span class="co"># 貌似bash下没有区别？</span></code></pre>
+<p>引用还可以改掉<code>echo</code>命令不换行的“毛病”。</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">echo</span> <span class="ot">$(</span><span class="kw">ls</span> -l<span class="ot">)</span>
+
+<span class="kw">echo</span> <span class="st">&quot;</span><span class="ot">$(</span><span class="kw">ls</span> -l<span class="ot">)</span><span class="st">&quot;</span></code></pre>
+<h4 id="双引号">双引号</h4>
+<p>双引号引用称为“部分引用”，一般情况下双引号引用是字面意思，除非遇到如下特殊字符，<code>$</code>,``<code>\</code>。保留<code>$</code>作为特殊字符的意义是为了能够在双引号中也能够正常的引用变量<code>(&quot;$variable&quot;)</code>, 也就是说, 这个变量将被它的值所取代.</p>
+<p>使用双引号还能够阻止单词分割(word splitting)。如果一个参数被双引号扩起来的话, 那么这个参数将认为是一个单元, 即使这个参数包含有空白, 那里面的单词也不会被分隔开.</p>
+<p>在echo语句中, 只有在单词分割(word splitting)或者需要保留空白的时候, 才需要把参数用双引号括起来.</p>
+<h4 id="单引号">单引号</h4>
+<p>单引号引用称为”全引用“，所有特殊字符按照字面意思解释，<code>$</code>特殊意义被关闭。</p>
+<p>如果想在一对单引号中显示一个单引号是不行的。</p>
+<h3 id="转义">转义</h3>
+<p>转义是一种引用单个字符的方法. 一个前面放上转义符 ()的字符就是告诉shell这个字符按照字面的意思进行解释, 换句话说, 就是这个字符失去了它的特殊含义.</p>
+<p>在某些特定的命令和工具中, 比如echo和sed, 转义符往往会起到相反效果 - 它反倒可能会引发出这个字符的特殊含义。</p>
+<p>echo和sed命令使用如下特殊字符：</p>
+<table>
+<col width="25%" />
+<col width="69%" />
+<thead>
+<tr class="header">
+<th align="left">特殊字符</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">\n</td>
+<td align="center">新的一行</td>
+</tr>
+<tr class="even">
+<td align="left">\r</td>
+<td align="center">回车</td>
+</tr>
+<tr class="odd">
+<td align="left">\t</td>
+<td align="center">水平制表符</td>
+</tr>
+<tr class="even">
+<td align="left">\v</td>
+<td align="center">垂直制表符</td>
+</tr>
+<tr class="odd">
+<td align="left">\b</td>
+<td align="center">后退符</td>
+</tr>
+<tr class="even">
+<td align="left">\a</td>
+<td align="center">alert,蜂鸣</td>
+</tr>
+<tr class="odd">
+<td align="left">\0xx</td>
+<td align="center">转换为八进制的ASCII码</td>
+</tr>
+<tr class="even">
+<td align="left">\&quot;</td>
+<td align="center">引号字面意思</td>
+</tr>
+<tr class="odd">
+<td align="left">\$</td>
+<td align="center"><code>$</code>本身子面的含义(跟在<code>\$</code>后边的变量名将不能引用变量的值)</td>
+</tr>
+<tr class="even">
+<td align="left"><code>\\</code></td>
+<td align="center">反斜线字母意思</td>
+</tr>
+</tbody>
+</table>
+<h2 id="退出状态码">退出状态码</h2>
+<p><code>exit</code>被用来结束一个脚本, 就像在C语言中一样. 它也返回一个整数值, 并且这个整数值会传递给脚本的父进程, 父进程会使用这个值做下一步的处理.</p>
+<p>每个命令都会返回一个 退出状态码 (有时候也被称为 返回状态 ). 成功的命令返回0, 而不成功的命令返回非零值, 非零值通常都被解释成一个错误码. 行为良好的UNIX命令, 程序, 和工具都会返回0作为退出码来表示成功, 虽然偶尔也会有例外.</p>
+<p>同样的, 脚本中的函数和脚本本身也会返回退出状态码. 在脚本或者是脚本函数中执行的最后的命令会决定退出状态码. 在脚本中, exit nnn命令将会把 nnn退出码传递给shell( nnn必须是十进制数, 范围必须是0 - 255).</p>
+<p>脚本退出码获得的三种等价方法：</p>
+<ul>
+<li><p>当脚本以不带参数的exit命令来结束时, 脚本的退出状态码就由脚本中最后执行的命令来决定(就是exit之前的命令).</p></li>
+<li><p><code>exit $?</code></p></li>
+<li><p>脚本的结尾不写exit</p></li>
+</ul>
+<p><code>$?</code>保存了最后所执行的命令的退出状态码. 当函数返回之后, <code>$?</code>保存函数中最后所执行的命令的退出状态码. 这就是bash对函数&quot;返回值&quot;的处理方法. 当一个脚本退出, <code>$?</code>保存了脚本的退出状态码, 这个退出状态码也就是脚本中最后一个执行命令的退出状态码. 一般情况下, 0表示成功, 在范围1 - 255的整数表示错误.</p>
+<p><code>$?</code>用于测试脚本中的命令结果的时候, 往往显得特别有用.</p>
+<p><code>!</code> 逻辑 &quot;非&quot;操作符, 将会反转命令或条件测试的结果, 并且这会影响退出状态码.</p>
+<pre><code>metman@ThinkPad:/tmp$ true
+metman@ThinkPad:/tmp$ echo $?
+0
+metman@ThinkPad:/tmp$ ! true
+metman@ThinkPad:/tmp$ echo $?
+1
+metman@ThinkPad:/tmp$ </code></pre>
+<p>特定的退出状态码具有保留含义, 所以用户不应该在脚本中指定它.</p>
+<h2 id="条件判断">条件判断</h2>
+<h3 id="条件测试结构">条件测试结构</h3>
 
 <!--Baidu tongji-->
 <!--
