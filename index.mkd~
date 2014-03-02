@@ -1,19 +1,32 @@
 <!---title:MetMan's Wiki  -首页-->
 <!---keywords:Linux,气象,并行计算-->
-<!---date:2014-02-19-->
-##Programming
-
+<!---date:2014-03-02-->
+## Programming
+ * C | Fortran | Python
+ * [Bash](wiki/programming/bash.html)
+  
 <!--[用markdown + pandoc + makefile + vimwiki + git(github)搭建wiki](wiki/tool/sitebuild/ohlinuxwiki.html)-->
 
 
-##操作系统
-###Linux
+## 操作系统
+### Linux/Ubuntu
  * [autojump](wiki/os/autojump.html)
+ 
 
-##气象 
+### AIX
 
 
 
-##并行计算
+## 气象 
+  
+
+
+## 并行计算
+ * 并行计算基础
+ * MPI
+ * OpenMP
+
+## 工具
+ * [pandoc_markdown](wiki/tools |    |/pandoc_markdown.html)|[Beamer](wiki/tools/beamer.html)
 
 <!-- vim:set tw=0:-->
