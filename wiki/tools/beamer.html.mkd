@@ -1,0 +1,55 @@
+
+
+1. 每一节
+
+```
+\begin{section}
+\begin{subsection} %小节
+
+...
+
+```
+
+2. 每一Slide
+
+```
+\begin{frame}
+\frametitle{%title%}  %Slide标题，没有为空白
+...
+\end{frame}
+```
+
+3. 标题页
+
+```
+\begin{frame}                                                                                                                                                
+  \titlepage                                                                    
+\end{frame} 
+```
+
+4. 目录页
+
+5. 列表
+
+有序列表
+
+无序列表
+
+逐项高亮
+
+6. 图片
+
+
+7. 表格
+
+8. 块状结构
+
+9. 分栏
+
+10. 字体大小、颜色、位置
+
+11. 公式
+
+12. logo
+
+
