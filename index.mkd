@@ -1,6 +1,6 @@
 <!---title:MetMan's Wiki  -首页-->
 <!---keywords:Linux,气象,并行计算-->
-<!---date:2014-03-02-->
+<!---date:2014-03-19-->
 ## Programming
  * C | Fortran | Python
  * [Bash](wiki/programming/bash.html)
@@ -27,6 +27,6 @@
  * OpenMP
 
 ## 工具
- * [pandoc_markdown](wiki/tools/pandoc_markdown.html)|[Beamer](wiki/tools/beamer.html)
+ * [pandoc_markdown](wiki/tools/pandoc_markdown.html)|[Beamer](wiki/tools/beamer.html) | [git](wiki/tools/git.html)
 
 <!-- vim:set tw=0:-->

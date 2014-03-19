@@ -1,0 +1,10 @@
+
+## git常用技巧收集
+<!---date:2014-03-19-->
+ * 打包某一tag版本 
+ 
+```
+ cd myproject #进入项目工作目录
+ git tag      #查看tag
+ git archive --format=tar --prefix=myproject/ tag_name |gzip > myproject.tar.gz
+```
