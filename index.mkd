@@ -11,7 +11,7 @@
 ## 操作系统
 ### Linux/Ubuntu
  * [autojump](wiki/os/autojump.html)
- * [Vim][wiki/os/vim.html] 
+ * [Vim](wiki/os/vim.html)
  
 
 ### AIX
