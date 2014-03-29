@@ -2,4 +2,4 @@
 
 ##VIM插件配置
 
-[VIM插件配置][vim_extensions.html]
+[VIM插件配置](vim_extensions.html)
