@@ -1,6 +1,6 @@
 <!---title:MetMan's Wiki  -首页-->
 <!---keywords:Linux,气象,并行计算-->
-<!---date:2014-03-19-->
+<!---date:2014-03-29-->
 ## Programming
  * C | Fortran | Python
  * [Bash](wiki/programming/bash.html)
@@ -11,6 +11,7 @@
 ## 操作系统
 ### Linux/Ubuntu
  * [autojump](wiki/os/autojump.html)
+ * [Vim][wiki/os/vim.html] 
  
 
 ### AIX
@@ -30,3 +31,5 @@
  * [pandoc_markdown](wiki/tools/pandoc_markdown.html)|[Beamer](wiki/tools/beamer.html) | [git](wiki/tools/git.html)
 
 <!-- vim:set tw=0:-->
+
+

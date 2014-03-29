@@ -1,0 +1,328 @@
+# VIM插件配置与用法
+---
+
+##Vundle
+
+目前我的VIM使用vundle管理插件，vundle整合了git，可以到github自动下载、安装插件。
+
+###下载vundle
+
+```bash
+$ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+```
+###vimrc配置
+
+```
+set nocompatible                " be iMproved
+filetype off                         " required!
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+
+"let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+
+"vim-scripts repos
+Bundle 'ctrlp.vim'
+Bundle 'AutoClose'
+Bundle 'FencView.vim'
+Bundle 'The-NERD-tree'
+Bundle 'The-NERD-Commenter'
+Bundle 'Indent-Guides'
+Bundle 'snipMate'
+Bundle 'taglist.vim'
+
+"github other users' repos
+Bundle 'Yggdroot/indentLine'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'mattn/calendar-vim'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic'
+Bundle 'mileszs/ack.vim'
+Bundle 'bling/vim-airline'
+
+filetype plugin indent on
+```
+
+bundle分为三类：
+
+ * 在Github vim-scripts 用户下的repos,只需要写出repos名称，如`Bundle 'VimIM'`
+ * 在Github其他用户下的repos, 需要写出“用户名/repos名”，如`Bundle 'kien/ctrlp.vim‘`
+ * 不在Github上的插件，需要写出git全路径，如`Bundle 'git://git.wincent.com/command-t.git'`
+
+
+###vundle常用命令
+
+在vim命令行模式下常用的vundle命令
+
+```
+  :h vundle            -查看vundle帮助，注意Bundle命令后不允许有注释
+  :BundleList          - list configured bundles
+  :BundleInstall(!)            - install(update) bundles
+  :BundleSearch(!) foo     - search(or refresh cache first) for foo
+  :BundleClean(!)      - confirm(or auto-approve) removal of unused  bundles
+```
+
+###一般使用流程
+
+ * 查找要安装的vim插件的git地址，一般在github上都能找到；
+ * 在vim配置文件`~/.vimrc`中按照bundle三种类型中匹配的一种格式写入并保存；
+ * 重启vim，输入`:BundleInstall`安装插件；
+ * 一般情况下已经可以用了，但可能要进一步配置该插件；
+ * 关掉某插件，只要在`~/.vimrc`中注释掉`Bundle 'extension'`即可。
+
+---
+
+##ctrlp.vim
+
+###用途
+
+快速查找文件，一定程度上可替代NERDTree。
+
+###安装
+
+```
+Bundle 'ctrlp.vim'
+```
+
+###vimrc配置
+
+```
+":h ctrlp 查看帮助文件
+noremap <C-W><C-U> :CtrlPMRU<CR>
+nnoremap <C-W>u :CtrlPMRU<CR>
+let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|.rvm$'
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_follow_symlinks=1
+"let g:loaded_ctrlp = 1  "完全关掉该插件
+```
+
+###用法
+
+在vim normal模式下，按下ctrl+p，输入要打开的文件名、文件名一部分或路径。
+
+##NERD-Tree
+
+###用途
+
+用于浏览文件系统的树形资源管理插件,它可以让你像使用Windows的文件管理器一样在VIM中浏览文件系统并且打开文件或目录.
+
+###安装
+
+```
+Bundle 'The-NERD-tree'
+```
+
+###配置
+
+```
+nmap <F2> :NERDTreeToggle <CR>
+let NERDTreeMinimalUI=1
+let NERDChristmasTree=1
+```
+
+###用法
+
+ * 使用`:NERDTreeToggle`命令或`F2`键（vimrc中设置的）打开插件。
+ * `o `打开关闭文件或者目录 
+ * `t` 在标签页中打开 
+ * `T`在后台标签页中打开 
+ * `!` 执行此文件 
+ * `p` 到上层目录 
+ * `P` 到根目录
+ * `K` 到第一个节
+ * `点 J`到最后一个节点 
+ * `u` 打开上层目录 
+ * `m` 显示文件系统菜单（添加、删除、移动操作） 
+ * `?`帮助 
+ * `q` 关闭
+
+---
+
+##NERDCommenter
+
+###用途
+
+对多种文件类型的文件进行不同方式地、快速地注释，比vim默认的注释方式更有效率。
+
+###安装
+
+```
+Bundle 'The-NERD-Commenter'
+```
+
+###配置
+
+
+###用法
+
+需要打开 filetype plugin on，依靠文件类型选择注释符。Vim 默认的 <leader> 值是`\`，可通过在 .vimrc 文件中修改<leader>值，我用的是`,`键。
+
+ * ` ,ca`  --在可选的注释方式之间切换，比如C/C++ 的块注释/* */和行注释//
+ *  `,cc` --注释当前行
+ *  `,cu` --取消注释
+ *  `,c` --切换注释/非注释状态
+ * `,cs` --以”性感”的方式注释
+ * `,cA` --在当前行尾添加注释符，并进入Insert模式
+
+Normal模式下，几乎所有命令前面都可以指定行数;Visual模式下执行命令，会对选中的特定区块进行注释/反注释。
+
+---
+
+##FencView
+
+###用途
+
+查看和自动识别文件编码。
+
+###安装
+
+```
+Bundle 'FencView.vim'
+```
+
+###用法
+
+首先输入`:FencAutoDectect`自动检测文件编码，然后就可以`:FencView`查看自动检测到的字符集是什么了。注：可以先输入`:F`然后直接tab按键就可以自动补全命令,不用全部输入。
+
+```
+:F输入tab按键
+:FencAutoDectect
+:FencView
+```
+
+####对于vim打开文件时如何自动识别,可以有如下2个方法:
+
+ 1. 在.vimrc中加入如下一行
+    `set fileencodings=utf-8,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936`
+ 2. 在.vimrc中加入上面安装的fencview插件指令
+
+```
+let g:fencview_autodetect=1
+let g:fencview_auto_patterns='*'
+```
+
+对于方法2因为每次打开都将执行检测运算,所以效率比较低,使用方法1效率最高的(推荐),
+当方法1不能识别时,可以使用:FencAutoDectect自动检测,然后追加encoding到方法1中. 
+
+---
+
+##Autoclose
+
+括号自动补全，现在不太好用，先关掉它，看以后能不能找到更好的选择。
+
+---
+
+##taglist
+
+###用途
+
+配合ctags使用，可在vim中跳转函数定义
+
+###安装
+
+###配置
+
+```
+"open/close taglist window with ',tl'
+map <silent><leader>tl :TlistToggle<CR>
+"set path to ctags
+let Tlist_Ctags_Cmd='/usr/bin/ctags'  
+"Only show the current file's tags
+let Tlist_Show_One_File=1
+"Exit when only the taglist window exists
+let Tlist_Exit_OnlyWindow=1
+"use the right window for taglist
+let Tlist_Use_Right_Window=1
+let Tlist_GainFocus_On_ToggleOpen=1
+```
+
+###用法
+
+在使用taglist之前，需要在项目根目录下使用`ctags -R`生成tags文件。
+
+ * `Ctrl-w W`  --在taglist和代码窗口之间跳转
+ * `Ctrl-]` --光标定位在函数或变量名上，按此键跳到定义处
+ * `Ctrl-o` --调回，是`Ctrl-]`逆操作
+ * `,tl` --打开/关闭taglist窗口,
+ 
+---
+
+##vim-airline
+
+###用途
+
+纯vim脚本写的powerline。
+
+###安装
+
+```
+Bundle 'bling/vim-airline'
+```
+
+还要安装powerline字体才好看。安装方法[见此][1]
+
+###配置
+
+```
+set t_Co=256     "终端里开启powerline颜色
+set laststatus=2  "开启airline
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme="molokai"  “airline主题设置，可到插件里查看拥有的主题
+```
+
+###用法
+
+打开vim就能看到状态行了。
+
+---
+
+##Calendar
+
+###用途
+vim中的日历
+
+###配置
+
+```
+map <F9> :Calendar<cr>
+```
+
+###用法
+
+使用`:Calendar`或`F9`按键打开日历。
+
+---
+
+##snipMate
+
+###用途
+
+自动补齐代码片段
+
+---
+
+##Ultisnips
+
+---
+
+##YouCompleteMe
+
+###用途
+
+代码提示
+
+---
+
+##syntastic
+
+##ack.vim
+
+[1]: https://powerline.readthedocs.org/en/latest/fontpatching.html
