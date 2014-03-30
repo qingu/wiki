@@ -38,7 +38,10 @@
 <p>目录:</p>
 <div id="TOC">
 <ul>
-<li><a href="#git常用技巧收集">git常用技巧收集</a></li>
+<li><a href="#git常用技巧收集">git常用技巧收集</a><ul>
+<li><a href="#小版本commit回滚合并">小版本commit、回滚、合并</a></li>
+<li><a href="#section"></a></li>
+</ul></li>
 </ul>
 </div>
  <!--if(toc)-->
@@ -52,6 +55,25 @@
 <pre><code> cd myproject #进入项目工作目录
  git tag      #查看tag
  git archive --format=tar --prefix=myproject/ tag_name |gzip &gt; myproject.tar.gz</code></pre>
+<h3 id="小版本commit回滚合并">小版本commit、回滚、合并</h3>
+<ul>
+<li><p>建议每隔一小段代码就commit一次，快捷命令<code>git ci</code>（实际是<code>git commit -a -v</code>，对修改或删除文件进行stage，但新文件不会被跟踪，是用来省略<code>git add .</code>这个过程。 在~/.gitconfig配置），这样完成一个功能就会commit多次。小版本commit好处是发现错误容易回滚回去，重新来过。</p></li>
+<li>版本回滚（即撤消）</li>
+<li>回滚单文件（未commit）：<code>git checkout filename</code></li>
+<li>回滚所以修改文件(未commit)： <code>git throw</code> = <code>git reset --hard HEAD</code></li>
+<li><p>回滚到上一个commit（已commit）： <code>git throwh</code> = <code>git reset --hard HEAD^</code></p></li>
+<li><p>合并多个小版本</p></li>
+</ul>
+<p>当多个小的commit完全一个功能性问题后(可以使用相同的commit信息用于后面区别、合并)，想要把这几个commit合并成一个具有代表性的commit。比如说合并3个commit，首先， <code>git rebase -i HEAD~~~</code>（或<code>git rebase -i HEAD~3</code>或<code>git rebase -i 版本号</code>），进入rebase界面，把除了第一<code>pick</code>，其他所有<code>pick</code>改为<code>s</code>，保存推出，又进入到了commit信息中，把几个commit信息删去只写一个commit信息用于总结这个功能，最后push到github上。</p>
+<p><a href="http://happycasts.net/episodes/92">http://happycasts.net/episodes/92</a></p>
+<h3 id="section"></h3>
+<p><code>git commit</code> 只追踪已提交文件，新创建文件需要先<code>git add</code></p>
+<p><code>git commit -a</code> 可提交多行信息</p>
+<p><code>git commit -a -v</code> 还可以看到详细的修改内容</p>
+<p><code>git blame filename</code> 文件每一行修改历史</p>
+<p><code>tig</code> git前端，显示版本信息 <code>sudo apt-get install tig</code>。按<code>d</code>进入diff，<code>q</code>退出。</p>
+<p><code>tig filename</code> 单个文件的commit历史 <code>tig blame filename</code> 等价于<code>git blame filename</code>，但显示更好</p>
+<p><a href="http://happycasts.net/episodes/4?autoplay=true">http://happycasts.net/episodes/4?autoplay=true</a></p>
 
 <!--Baidu tongji-->
 <!--
