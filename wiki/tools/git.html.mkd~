@@ -8,3 +8,35 @@
  git tag      #查看tag
  git archive --format=tar --prefix=myproject/ tag_name |gzip > myproject.tar.gz
 ```
+
+### 小版本commit、回滚、合并
+
+ * 建议每隔一小段代码就commit一次，快捷命令`git ci`（实际是`git commit -a -v`，对修改或删除文件进行stage，但新文件不会被跟踪，是用来省略`git add .`这个过程。 在~/.gitconfig配置），这样完成一个功能就会commit多次。小版本commit好处是发现错误容易回滚回去，重新来过。
+
+ * 版本回滚（即撤消）
+  * 回滚单文件（未commit）：`git checkout filename`
+  * 回滚所以修改文件(未commit)： `git throw` = `git reset --hard HEAD`
+  * 回滚到上一个commit（已commit）： `git throwh` = `git reset --hard HEAD^`
+
+ * 合并多个小版本
+
+当多个小的commit完全一个功能性问题后(可以使用相同的commit信息用于后面区别、合并)，想要把这几个commit合并成一个具有代表性的commit。比如说合并3个commit，首先， `git rebase -i HEAD~~~`（或`git rebase -i HEAD~3`或`git rebase -i 版本号`），进入rebase界面，把除了第一`pick`，其他所有`pick`改为`s`，保存推出，又进入到了commit信息中，把几个commit信息删去只写一个commit信息用于总结这个功能，最后push到github上。
+
+<http://happycasts.net/episodes/92>
+
+###
+
+`git commit ` 只追踪已提交文件，新创建文件需要先`git add`
+
+`git commit -a` 可提交多行信息
+
+`git commit -a -v` 还可以看到详细的修改内容
+
+`git blame filename` 文件每一行修改历史
+
+`tig` git前端，显示版本信息 `sudo apt-get install tig`。按`d`进入diff，`q`退出。
+
+`tig filename` 单个文件的commit历史
+`tig blame filename` 等价于`git blame filename`，但显示更好
+
+<http://happycasts.net/episodes/4?autoplay=true>
