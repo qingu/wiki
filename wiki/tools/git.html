@@ -39,6 +39,7 @@
 <div id="TOC">
 <ul>
 <li><a href="#git常用技巧收集">git常用技巧收集</a><ul>
+<li><a href="#打包某一tag版本">打包某一tag版本</a></li>
 <li><a href="#小版本commit回滚合并">小版本commit、回滚、合并</a></li>
 <li><a href="#section"></a></li>
 </ul></li>
@@ -48,10 +49,8 @@
 
 <h2 id="git常用技巧收集">git常用技巧收集</h2>
 <!---date:2014-03-19-->
- 
-<ul>
-<li>打包某一tag版本</li>
-</ul>
+
+<h3 id="打包某一tag版本">打包某一tag版本</h3>
 <pre><code> cd myproject #进入项目工作目录
  git tag      #查看tag
  git archive --format=tar --prefix=myproject/ tag_name |gzip &gt; myproject.tar.gz</code></pre>
