@@ -15,9 +15,9 @@
  * 建议每隔一小段代码就commit一次，快捷命令`git ci`（实际是`git commit -a -v`，对修改或删除文件进行stage，但新文件不会被跟踪，是用来省略`git add .`这个过程。在~/.gitconfig配置），这样完成一个功能就会commit多次。小版本commit好处是发现错误容易回滚回去，重新来过。
   
  * 版本回滚（即撤消）
-   + 回滚单文件（未commit）：`git checkout filename`
-   + 回滚所以修改文件(未commit)： `git throw` = `git reset --hard HEAD`
-   + 回滚到上一个commit（已commit）： `git throwh` = `git reset --hard HEAD^`
+    + 回滚单文件（未commit）：`git checkout filename`
+    + 回滚所以修改文件(未commit)： `git throw` = `git reset --hard HEAD`
+    + 回滚到上一个commit（已commit）： `git throwh` = `git reset --hard HEAD^`
    
  * 合并多个小版本
 
