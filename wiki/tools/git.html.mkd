@@ -55,7 +55,7 @@ diff -Nurp dir1 dir2   #目录
 
 git有三个区：工作区、暂存区、git仓库。见图
 
-![git三个重要分区](images/git_concept.jpg)
+![git三个重要分区](../../images/git_concept.jpg)
 
    + git仓库/目录对应 `.git`目录;
    + 工作区对应项目目录下除了`.git`的目录内所有内容;
