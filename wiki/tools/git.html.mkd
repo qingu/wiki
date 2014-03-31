@@ -39,3 +39,36 @@
 `tig blame filename` 等价于`git blame filename`，但显示更好
 
 <http://happycasts.net/episodes/4?autoplay=true>
+
+###git diff
+
+* diff
+
+Linux系统自带的`diff`命令，查看两个比较类似的东西的差异，这两个东西可以分别是单个文件，也可以是目录（包含多个文件）。
+
+```
+diff -u file1 file2        #单文件
+diff -Nurp dir1 dir2   #目录
+```
+
+* git diff
+
+git有三个区：工作区、暂存区、git仓库。见图
+
+![git三个重要分区](images/git_concept.jpg)
+
+   + git仓库/目录对应 `.git`目录;
+   + 工作区对应项目目录下除了`.git`的目录内所有内容;
+   + 暂存区对应`.git/index`。
+
+####git diff核心内容
+
+ * `git diff` 用来查看我们在最新版本之上做的所有修改之中还没有放到 staging area 中的这部分，即工作区 .vs. Staging area。
+ * `git diff --staged` 用来查看 staging area 中的内容，也就是下次将要被做到下个版本之中去的内容，等价于`git diff --cached`，即Staging area .vs. Repos。
+ * `git diff HEAD` 以上两者之和，用来看总共的修改内容。
+
+git最新的版本号（40位 sha1 哈希）,别名`HEAD`
+
+ * `git diff one_commit_hash another_commit_hash` 查看新老两个版本之间的 diff
+ * `git diff filename `或者 `git diff dirname/ `查看指定文件或目录的修改
+ * `git diff one_branch_name another_branch_name` 对比两个分支之间的差异

@@ -42,6 +42,7 @@
 <li><a href="#打包某一tag版本">打包某一tag版本</a></li>
 <li><a href="#小版本commit回滚合并">小版本commit、回滚、合并</a></li>
 <li><a href="#tig">tig</a></li>
+<li><a href="#git-diff">git diff</a></li>
 </ul></li>
 </ul>
 </div>
@@ -75,6 +76,37 @@
 <p><code>tig</code> git前端，显示版本信息 <code>sudo apt-get install tig</code>。按<code>d</code>进入diff，<code>q</code>退出。</p>
 <p><code>tig filename</code> 单个文件的commit历史 <code>tig blame filename</code> 等价于<code>git blame filename</code>，但显示更好</p>
 <p><a href="http://happycasts.net/episodes/4?autoplay=true">http://happycasts.net/episodes/4?autoplay=true</a></p>
+<h3 id="git-diff">git diff</h3>
+<ul>
+<li>diff</li>
+</ul>
+<p>Linux系统自带的<code>diff</code>命令，查看两个比较类似的东西的差异，这两个东西可以分别是单个文件，也可以是目录（包含多个文件）。</p>
+<pre><code>diff -u file1 file2        #单文件
+diff -Nurp dir1 dir2   #目录</code></pre>
+<ul>
+<li>git diff</li>
+</ul>
+<p>git有三个区：工作区、暂存区、git仓库。见图</p>
+<div class="figure">
+<img src="images/git_concept.jpg" alt="git三个重要分区" /><p class="caption">git三个重要分区</p>
+</div>
+<ul>
+<li>git仓库/目录对应 <code>.git</code>目录;</li>
+<li>工作区对应项目目录下除了<code>.git</code>的目录内所有内容;</li>
+<li>暂存区对应<code>.git/index</code>。</li>
+</ul>
+<h4 id="git-diff核心内容">git diff核心内容</h4>
+<ul>
+<li><code>git diff</code> 用来查看我们在最新版本之上做的所有修改之中还没有放到 staging area 中的这部分，即工作区 .vs. Staging area。</li>
+<li><code>git diff --staged</code> 用来查看 staging area 中的内容，也就是下次将要被做到下个版本之中去的内容，等价于<code>git diff --cached</code>，即Staging area .vs. Repos。</li>
+<li><code>git diff HEAD</code> 以上两者之和，用来看总共的修改内容。</li>
+</ul>
+<p>git最新的版本号（40位 sha1 哈希）,别名<code>HEAD</code></p>
+<ul>
+<li><code>git diff one_commit_hash another_commit_hash</code> 查看新老两个版本之间的 diff</li>
+<li><code>git diff filename</code>或者 <code>git diff dirname/</code>查看指定文件或目录的修改</li>
+<li><code>git diff one_branch_name another_branch_name</code> 对比两个分支之间的差异</li>
+</ul>
 
 <!--Baidu tongji-->
 <!--
