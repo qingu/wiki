@@ -7,7 +7,8 @@
 ```
  cd myproject #进入项目工作目录
  git tag      #查看tag
- git archive --format=tar --prefix=myproject/ tag_name |gzip > myproject.tar.gz
+ git archive master --format=tar --prefix='myproject/' tag_name |gzip > `git describe master`.tar.gz  #tag.gz包
+ git archive master --format=zip --prefix='myproject/'  > `git describe master`.zip
 ```
 
 ###小版本commit、回滚、合并
@@ -55,7 +56,7 @@ diff -Nurp dir1 dir2   #目录
 
 git有三个区：工作区、暂存区、git仓库。见图
 
-![git三个重要分区](images/git_concept.jpg)
+![git三个重要分区](../../images/git_concept.jpg)
 
    + git仓库/目录对应 `.git`目录;
    + 工作区对应项目目录下除了`.git`的目录内所有内容;

@@ -2,12 +2,55 @@
 ## git常用技巧收集
 <!---date:2014-03-19-->
 
+###tag
+
+Git使用tag标记发布正式的版本。Git的tag分为两种:轻量级和注释tag。轻量级tag非常像一个没有变化的分支（仅仅指向一个指定的commit）。而注释tag在Git数据库中存入完全对象，校验和、打tag人信息等。
+
+####创建本地tag
+
+ * `git tag tag-name` 创建轻量级的tag
+ * `git tag -a tag-name -m tag-message`  创建注释tag
+ * `git tag -s tag-name -m tag-message` 创建带有GPG签名的tag
+
+####查看本地tag
+
+ * `git tag` 列出tag版本
+ * `git tag -l glob_name` 列出特定的版本
+ * `git show tag-name` 查看tag信息
+
+####删除本地tag
+
+ * `git tag -d tag-name` 删除本地tag
+
+####tag latter
+
+如果你想在之前的commit版本中创建一个tag，可以这样做：
+
+```
+git log --pretty=oneline   #查看commit历史
+git tag -a tag-name commit-hash  #commit-hash可以是40位hash的前5,6位
+```   
+
+####推送、删除远程tag
+
+ * `git push origin tag-name` 推送单个tag到远程仓库
+ * `git push origin --tags` 推送所有本地tags到远程仓库
+ * `git push origin :refs/tags/tag-name` 删除远程tag
+
+####查看远程仓库、获取远程tag
+
+ * `git remote show origin`
+ * `git ls-remote --heads origin`  查看远程tag名
+ * `git pull origin refs/tags/tag-name`  获取远程tag
+ * `git pull origin refs/heads/2-2-stable`
+
 ###打包某一tag版本 
  
 ```
  cd myproject #进入项目工作目录
  git tag      #查看tag
- git archive --format=tar --prefix=myproject/ tag_name |gzip > myproject.tar.gz
+ git archive master --format=tar --prefix='myproject/' tag_name |gzip > `git describe master`.tar.gz  #tag.gz包
+ git archive master --format=zip --prefix='myproject/'  > `git describe master`.zip
 ```
 
 ###小版本commit、回滚、合并
