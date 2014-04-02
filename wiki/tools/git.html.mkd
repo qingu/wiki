@@ -44,6 +44,8 @@ git tag -a tag-name commit-hash  #commit-hash可以是40位hash的前5,6位
  * `git pull origin refs/tags/tag-name`  获取远程tag
  * `git pull origin refs/heads/2-2-stable`
 
+---
+
 ###打包某一tag版本 
  
 ```
@@ -52,6 +54,8 @@ git tag -a tag-name commit-hash  #commit-hash可以是40位hash的前5,6位
  git archive master --format=tar --prefix='myproject/' tag_name |gzip > `git describe master`.tar.gz  #tag.gz包
  git archive master --format=zip --prefix='myproject/'  > `git describe master`.zip
 ```
+
+---
 
 ###小版本commit、回滚、合并
 
@@ -65,6 +69,8 @@ git tag -a tag-name commit-hash  #commit-hash可以是40位hash的前5,6位
 当多个小的commit完全一个功能性问题后(可以使用相同的commit信息用于后面区别、合并)，想要把这几个commit合并成一个具有代表性的commit。比如说合并3个commit，首先， `git rebase -i HEAD~~~`（或`git rebase -i HEAD~3`或`git rebase -i 版本号`），进入rebase界面，把除了第一`pick`，其他所有`pick`改为`s`，保存推出，又进入到了commit信息中，把几个commit信息删去只写一个commit信息用于总结这个功能，最后push到github上。
 
 <http://happycasts.net/episodes/92>
+
+---
 
 ###tig
 
@@ -82,6 +88,8 @@ git tag -a tag-name commit-hash  #commit-hash可以是40位hash的前5,6位
 `tig blame filename` 等价于`git blame filename`，但显示更好
 
 <http://happycasts.net/episodes/4?autoplay=true>
+
+---
 
 ###git diff
 

@@ -87,11 +87,13 @@ git tag -a tag-name commit-hash  #commit-hash可以是40位hash的前5,6位</cod
 <li><code>git pull origin refs/tags/tag-name</code> 获取远程tag</li>
 <li><code>git pull origin refs/heads/2-2-stable</code></li>
 </ul>
+<hr />
 <h3 id="打包某一tag版本">打包某一tag版本</h3>
 <pre><code> cd myproject #进入项目工作目录
  git tag      #查看tag
  git archive master --format=tar --prefix=&#39;myproject/&#39; tag_name |gzip &gt; `git describe master`.tar.gz  #tag.gz包
  git archive master --format=zip --prefix=&#39;myproject/&#39;  &gt; `git describe master`.zip</code></pre>
+<hr />
 <h3 id="小版本commit回滚合并">小版本commit、回滚、合并</h3>
 <ul>
 <li>建议每隔一小段代码就commit一次，快捷命令<code>git ci</code>（实际是<code>git commit -a -v</code>，对修改或删除文件进行stage，但新文件不会被跟踪，是用来省略<code>git add .</code>这个过程。在~/.gitconfig配置），这样完成一个功能就会commit多次。小版本commit好处是发现错误容易回滚回去，重新来过。</li>
@@ -105,6 +107,7 @@ git tag -a tag-name commit-hash  #commit-hash可以是40位hash的前5,6位</cod
 </ul>
 <p>当多个小的commit完全一个功能性问题后(可以使用相同的commit信息用于后面区别、合并)，想要把这几个commit合并成一个具有代表性的commit。比如说合并3个commit，首先， <code>git rebase -i HEAD~~~</code>（或<code>git rebase -i HEAD~3</code>或<code>git rebase -i 版本号</code>），进入rebase界面，把除了第一<code>pick</code>，其他所有<code>pick</code>改为<code>s</code>，保存推出，又进入到了commit信息中，把几个commit信息删去只写一个commit信息用于总结这个功能，最后push到github上。</p>
 <p><a href="http://happycasts.net/episodes/92">http://happycasts.net/episodes/92</a></p>
+<hr />
 <h3 id="tig">tig</h3>
 <p><code>git commit</code> 只追踪已提交文件，新创建文件需要先<code>git add</code></p>
 <p><code>git commit -a</code> 可提交多行信息</p>
@@ -113,6 +116,7 @@ git tag -a tag-name commit-hash  #commit-hash可以是40位hash的前5,6位</cod
 <p><code>tig</code> git前端，显示版本信息 <code>sudo apt-get install tig</code>。按<code>d</code>进入diff，<code>q</code>退出。</p>
 <p><code>tig filename</code> 单个文件的commit历史 <code>tig blame filename</code> 等价于<code>git blame filename</code>，但显示更好</p>
 <p><a href="http://happycasts.net/episodes/4?autoplay=true">http://happycasts.net/episodes/4?autoplay=true</a></p>
+<hr />
 <h3 id="git-diff">git diff</h3>
 <ul>
 <li>diff</li>
