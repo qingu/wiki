@@ -51,7 +51,8 @@ git tag -a tag-name commit-hash  #commit-hash可以是40位hash的前5,6位
 ```
  cd myproject #进入项目工作目录
  git tag      #查看tag
- git archive master --format=tar --prefix='myproject/' tag_name |gzip > `git describe master`.tar.gz  #tag.gz包
+ git archive master --format=tar --prefix='myproject/' |gzip > `git describe master`.tar.gz  #最新tag的tag.gz包
+ git archive --format=tar --prefix='myproject/' tag_name |gzip > `git describe master`.tar.gz  #tag.gz包
  git archive master --format=zip --prefix='myproject/'  > `git describe master`.zip
 ```
 

@@ -91,7 +91,8 @@ git tag -a tag-name commit-hash  #commit-hash可以是40位hash的前5,6位</cod
 <h3 id="打包某一tag版本">打包某一tag版本</h3>
 <pre><code> cd myproject #进入项目工作目录
  git tag      #查看tag
- git archive master --format=tar --prefix=&#39;myproject/&#39; tag_name |gzip &gt; `git describe master`.tar.gz  #tag.gz包
+ git archive master --format=tar --prefix=&#39;myproject/&#39; |gzip &gt; `git describe master`.tar.gz  #最新tag的tag.gz包
+ git archive --format=tar --prefix=&#39;myproject/&#39; tag_name |gzip &gt; `git describe master`.tar.gz  #tag.gz包
  git archive master --format=zip --prefix=&#39;myproject/&#39;  &gt; `git describe master`.zip</code></pre>
 <hr />
 <h3 id="小版本commit回滚合并">小版本commit、回滚、合并</h3>
